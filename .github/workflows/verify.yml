@@ -1,0 +1,18 @@
+name: verify
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      # full re-verification of every stored circuit (stdlib only)
+      - run: python tools/verify_atlas.py
+      # lookup smoke: canonical class, a transformed table, capped regime,
+      # constructive form — each re-verifies its output before printing
+      - run: python tools/atlas_lookup.py 0x6996
+      - run: python tools/atlas_lookup.py 0xbee7
+      - run: python tools/atlas_lookup.py 0x0110 --regime w1 --metric wire_primary
+      - run: python tools/atlas_lookup.py 0x6996 --constructive

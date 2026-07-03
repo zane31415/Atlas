@@ -1,5 +1,7 @@
 # Atlas — exact minimal threshold circuits for all 4-input Boolean functions
 
+[![verify](https://github.com/zane31415/Atlas/actions/workflows/verify.yml/badge.svg)](https://github.com/zane31415/Atlas/actions/workflows/verify.yml)
+
 Exact minimum-cost realizations of **every 4-input Boolean function**
 (65,536 truth tables; 222 NPN equivalence classes) as feedforward
 integer-weight **threshold circuits**, with machine-checkable verification
@@ -128,15 +130,42 @@ mm_oracle.py` runs its self-checks. Dependencies for solving only:
 `numpy`, `scipy`, `ortools` (the lookup and verification tools need
 nothing).
 
+## Relation to prior work
+
+- **Muroga's threshold-function enumerations** (S. Muroga, *Threshold Logic
+  and its Applications*, Wiley, 1971) are the classical tables for single
+  threshold gates. Our single-gate census reproduces the classical count —
+  1,882 of the 65,536 4-input functions are threshold functions — as an
+  independent cross-check; the atlas extends the enumeration from single
+  gates to minimum-cost multi-gate circuits.
+- **The cost model** (wires = nonzero weights as the complexity currency)
+  is the quantity of D. M. Kane and R. Williams, "Super-linear gate and
+  super-quadratic wire lower bounds for depth-two and depth-three threshold
+  circuits," *STOC 2016* (arXiv:1511.07860).
+- **The nearest relative in spirit** is Knuth's exhaustive small-n
+  optimal-circuit computation for 4- and 5-variable functions over
+  two-input Boolean gates (*TAOCP* Vol. 4A, §7.1.2, "Boolean evaluation").
+  This atlas plays the same role for integer-weight threshold gates under a
+  wire+gate cost, adds complete Pareto frontiers under weight caps, and
+  ships per-point optimality certificates/flags and re-verification tools.
+
+Exact synthesis of threshold networks is an active EDA topic (e.g.
+SAT/CP-based exact synthesis, threshold-logic decomposition); this
+repository is a reference *table with certificates* for the complete
+4-input space, not a synthesis tool for larger n.
+
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Code (tools, solver library): **MIT** — see [LICENSE](LICENSE).
+Data (`data/*.jsonl`, `n4_summary.csv`): **CC0 1.0** (public domain
+dedication) — see [data/LICENSE](data/LICENSE).
 
 ## Citing
 
-If you use these tables or tools, please cite this repository:
+If you use these tables or tools, please cite this repository (tagged
+releases are immutable reference points):
 
 ```
 Atlas: exact minimal threshold circuits for all 4-input Boolean functions.
-https://github.com/zane31415/Atlas, 2026.
+https://github.com/zane31415/Atlas, v1.0.0, 2026.
 ```
