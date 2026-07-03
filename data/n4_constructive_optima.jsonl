@@ -1,0 +1,85 @@
+{"canon": 0, "category": "LTF", "cost": 0, "form": "constant", "shells": 0, "ckt": []}
+{"canon": 1, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-3, -3, -3, -3, 0]]]}
+{"canon": 3, "category": "LTF", "cost": 4, "form": "single-gate", "shells": 1, "ckt": [[[0, -3, -3, -3, 0]]]}
+{"canon": 6, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 2, 0], [-2, -2, 0, 0, 2]], [[-2, 1, -1]]]}
+{"canon": 7, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-2, -2, -3, -3, 2]]]}
+{"canon": 15, "category": "LTF", "cost": 3, "form": "single-gate", "shells": 1, "ckt": [[[0, 0, -3, -3, 0]]]}
+{"canon": 22, "category": "dec:AND/OR", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -2], [1, 1, 1, 0, -1]], [[-2, 1, -1]]]}
+{"canon": 23, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-2, -2, -2, -3, 2]]]}
+{"canon": 25, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-1, 1, 0, 2, -1], [-2, 1, -1, 0, 1]], [[-2, 1, -1]]]}
+{"canon": 27, "category": "dec:AND/OR", "cost": 10, "form": "shell", "shells": 3, "ckt": [[[-1, 1, 0, 2, -1], [-2, 0, -2, 0, 2]], [[-2, 1, -1]]]}
+{"canon": 31, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-1, -1, -2, -3, 2]]]}
+{"canon": 60, "category": "dec:AND/OR", "cost": 10, "form": "shell", "shells": 3, "ckt": [[[0, -1, -1, 2, 0], [0, -2, -2, 0, 2]], [[-2, 1, -1]]]}
+{"canon": 61, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 2, -2], [-2, 1, 1, 0, 1]], [[-2, 1, -1]]]}
+{"canon": 63, "category": "LTF", "cost": 4, "form": "single-gate", "shells": 1, "ckt": [[[0, -2, -2, -3, 2]]]}
+{"canon": 127, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-1, -1, -1, -3, 2]]]}
+{"canon": 255, "category": "LTF", "cost": 2, "form": "single-gate", "shells": 1, "ckt": [[[0, 0, 0, -3, 0]]]}
+{"canon": 278, "category": "symmetric", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 1, -2], [1, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 279, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-3, -3, -3, -3, 3]]]}
+{"canon": 280, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -3], [-1, -1, -2, -2, 1]], [[-2, -1, 0]]]}
+{"canon": 282, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -3], [1, 0, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 286, "category": "dec:MUX", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -3], [1, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 287, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-2, -2, -3, -3, 4]]]}
+{"canon": 316, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 1, -2], [-1, 2, 2, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 317, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 1, -2], [-2, 1, 1, 0, 1]], [[-2, 1, -1]]]}
+{"canon": 319, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-1, -2, -2, -3, 3]]]}
+{"canon": 360, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -3], [-1, -1, -1, -2, 1]], [[-2, -1, 0]]]}
+{"canon": 362, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -3], [2, 1, 1, 2, -2]], [[-2, 1, -1]]]}
+{"canon": 366, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -3], [1, 1, 0, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 367, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -3], [1, 1, -2, 0, 1]], [[-2, 1, -1]]]}
+{"canon": 382, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 2, -3], [1, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 383, "category": "LTF", "cost": 5, "form": "single-gate", "shells": 1, "ckt": [[[-2, -2, -2, -3, 4]]]}
+{"canon": 391, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 0, -1], [-2, -2, 1, -2, 3]], [[-2, 1, -1]]]}
+{"canon": 393, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-2, 1, 1, 0, -1], [2, -1, 0, 1, -2]], [[-2, -1, 0]]]}
+{"canon": 395, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[-2, 1, 1, 0, -1], [-2, 1, -1, -2, 2]], [[-2, 1, -1]]]}
+{"canon": 399, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 0, -1], [-1, -1, 0, -2, 2]], [[-2, 1, -1]]]}
+{"canon": 426, "category": "dec:MUX", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-2, 0, 1, -1, 0], [-1, -1, 0, -2, 2]], [[-2, 1, -1]]]}
+{"canon": 427, "category": "dec:MUX", "cost": 10, "form": "shell", "shells": 3, "ckt": [[[-2, 1, 1, 0, -1], [-2, 0, 0, -2, 2]], [[-2, 1, -1]]]}
+{"canon": 828, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 1, -2], [0, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 829, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 1, -2], [-2, 1, 1, 1, 1]], [[-2, 1, -1]]]}
+{"canon": 831, "category": "LTF", "cost": 4, "form": "single-gate", "shells": 1, "ckt": [[[0, -3, -3, -3, 3]]]}
+{"canon": 856, "category": "prime:tangle", "cost": 16, "form": "shell", "shells": 4, "ckt": [[[0, 1, 1, 2, -3], [-1, 0, 1, 2, -1], [-2, -2, 1, 0, 3]], [[-4, 2, -1, 0]]]}
+{"canon": 863, "category": "prime:tangle", "cost": 10, "form": "shell", "shells": 3, "ckt": [[[-1, 0, -1, -2, 1], [0, 1, 1, 0, -1]], [[2, -1, 0]]]}
+{"canon": 960, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, -2, 1, -1, 0], [0, 2, -1, 1, -2]], [[-2, -1, 0]]]}
+{"canon": 963, "category": "dec:AND/OR", "cost": 10, "form": "shell", "shells": 3, "ckt": [[[0, -1, 2, 1, -2], [0, -2, 1, 0, 1]], [[-2, 1, -1]]]}
+{"canon": 980, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 2, -3], [-1, 1, 1, 2, -1]], [[-2, 1, -1]]]}
+{"canon": 981, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 2, -3], [-2, 1, 1, 2, 0]], [[-2, 1, -1]]]}
+{"canon": 984, "category": "prime:tangle", "cost": 15, "form": "shell", "shells": 4, "ckt": [[[0, 1, 1, 2, -3], [-1, 0, 1, 2, -1], [-2, -2, 0, 0, 2]], [[-4, 2, -1, 0]]]}
+{"canon": 988, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, 2, -3], [-1, 2, 1, 2, -1]], [[-2, 1, -1]]]}
+{"canon": 989, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-1, 1, 0, -2, 0], [0, 1, 1, -2, 1]], [[2, -1, 0]]]}
+{"canon": 1020, "category": "dec:XOR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, 1, 1, -2, -1], [0, 1, 1, -2, 1]], [[2, -1, 0]]]}
+{"canon": 1632, "category": "dec:AND/OR", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-2, -2, -1, -1, 2], [2, 2, 1, 1, -4]], [[-2, -1, 0]]]}
+{"canon": 1633, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 2, -2], [-2, -2, 1, 1, 1]], [[-2, 1, -1]]]}
+{"canon": 1635, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 2, -2], [-1, -2, 1, 1, 1]], [[-2, 1, -1]]]}
+{"canon": 1638, "category": "dec:AND/OR", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-2, -2, 1, 1, 0], [-2, -2, 0, 0, 2]], [[-2, 1, -1]]]}
+{"canon": 1639, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 2, -2], [-2, -2, 0, 0, 2]], [[-2, 1, -1]]]}
+{"canon": 1647, "category": "dec:MUX", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-1, -1, 2, 2, -2], [-2, -2, -2, -2, 4]], [[-2, 1, -1]]]}
+{"canon": 1656, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [1, 1, 2, 1, -2]], [[-2, 1, -1]]]}
+{"canon": 1658, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [2, 1, 2, 1, -2]], [[-2, 1, -1]]]}
+{"canon": 1662, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [1, 1, 1, 0, -1]], [[-2, 1, -1]]]}
+{"canon": 1714, "category": "prime:tangle", "cost": 15, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -2, 2, 0, -1], [1, -2, 0, -2, 3]], [[-4, 2, -1, 0]]]}
+{"canon": 1716, "category": "prime:tangle", "cost": 16, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -1, 2, 1, -2], [1, -2, 1, 0, 1]], [[-4, 2, -1, 0]]]}
+{"canon": 1717, "category": "prime:tangle", "cost": 17, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -1, 2, 1, -2], [2, -1, 2, 1, -1]], [[-4, 2, -1, 0]]]}
+{"canon": 1718, "category": "prime:tangle", "cost": 15, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -2, 2, 0, -1], [1, -2, 1, 0, 1]], [[-4, 2, -1, 0]]]}
+{"canon": 1719, "category": "prime:tangle", "cost": 16, "form": "shell", "shells": 4, "ckt": [[[0, -2, 0, -2, 0], [-1, -1, 2, 1, -1], [-2, -2, 1, 0, 3]], [[4, -2, 1, -1]]]}
+{"canon": 1778, "category": "prime:tangle", "cost": 15, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, -2, -1], [-1, -1, 2, 0, 0], [-1, -2, 0, 1, 1]], [[4, -2, 1, -1]]]}
+{"canon": 1782, "category": "dec:MUX", "cost": 14, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, -2, -1], [-1, -1, 2, 0, 0], [-2, -2, 0, 0, 2]], [[4, -2, 1, -1]]]}
+{"canon": 1912, "category": "dec:MUX", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [1, 1, 2, 2, -2]], [[-2, 1, -1]]]}
+{"canon": 1914, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [1, 0, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 1918, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 2, 2, -4], [1, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 1974, "category": "prime:tangle", "cost": 16, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -2, 2, 1, -1], [1, -2, 1, 0, 1]], [[-4, 2, -1, 0]]]}
+{"canon": 2018, "category": "prime:tangle", "cost": 16, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [1, -2, 0, 1, -1], [1, -2, -2, -1, 2]], [[-4, 2, -1, 0]]]}
+{"canon": 2022, "category": "prime:tangle", "cost": 15, "form": "shell", "shells": 4, "ckt": [[[0, 0, 1, 1, -2], [-2, 1, 0, 1, -1], [-2, 1, -1, 0, 1]], [[-4, 2, -1, 0]]]}
+{"canon": 2033, "category": "prime:tangle", "cost": 11, "form": "shell", "shells": 3, "ckt": [[[0, 0, 1, -2, -1], [1, 1, 2, -1, -1]], [[2, -1, 0]]]}
+{"canon": 4080, "category": "dec:XOR", "cost": 9, "form": "shell", "shells": 3, "ckt": [[[0, 0, -2, -2, 0], [0, 0, -2, -2, 2]], [[-2, 1, -1]]]}
+{"canon": 5736, "category": "symmetric", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-2, -2, -2, -2, 2], [-2, -2, -2, -2, 4]], [[-2, 1, -1]]]}
+{"canon": 5737, "category": "symmetric", "cost": 19, "form": "shell", "shells": 4, "ckt": [[[1, 1, 1, 1, -3], [1, 1, 1, 1, -2], [1, 1, 1, 1, -1]], [[-4, 2, -1, 0]]]}
+{"canon": 5738, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 1, -3], [2, 1, 1, 1, -2]], [[-2, 1, -1]]]}
+{"canon": 5739, "category": "prime:tangle", "cost": 18, "form": "shell", "shells": 4, "ckt": [[[1, -2, -2, -2, 1], [2, -1, -1, -1, 1], [0, -2, -2, -2, 4]], [[4, -2, 1, -1]]]}
+{"canon": 5742, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 1, -3], [2, 2, 1, 1, -2]], [[-2, 1, -1]]]}
+{"canon": 5758, "category": "prime:tangle", "cost": 12, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 1, -3], [1, 1, 1, 0, -1]], [[-2, 1, -1]]]}
+{"canon": 5784, "category": "prime:tangle", "cost": 17, "form": "shell", "shells": 4, "ckt": [[[-1, -1, -2, -1, 1], [-2, -2, -2, 0, 2], [-2, -2, 0, 1, 3]], [[-4, 2, -1, 0]]]}
+{"canon": 6014, "category": "symmetric", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[1, 1, 1, 1, -3], [1, 1, 1, 1, -1]], [[-2, 1, -1]]]}
+{"canon": 6030, "category": "prime:tangle", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-1, -1, -1, 2, -1], [-1, -1, 1, 2, 0]], [[2, -1, 0]]]}
+{"canon": 6120, "category": "dec:XOR", "cost": 13, "form": "shell", "shells": 3, "ckt": [[[-1, -1, -1, -2, 1], [-1, -1, -1, -2, 3]], [[-2, 1, -1]]]}
+{"canon": 27030, "category": "symmetric", "cost": 25, "form": "shell", "shells": 5, "ckt": [[[-2, -2, -2, -2, 0], [-2, -2, -2, -2, 2], [-2, -2, -2, -2, 4], [-2, -2, -2, -2, 6]], [[-8, 4, -2, 1, -1]]]}
