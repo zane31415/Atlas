@@ -126,8 +126,9 @@ def main():
             n_f += 1
             if not r["proven"]:
                 fold_unproven += 1
-    print(f"n4_fold_price.jsonl: {n_f} fold circuits verified "
-          f"({fold_unproven} flagged proven=false: premiums are upper bounds)")
+    flag_note = (f"({fold_unproven} flagged proven=false: premiums are upper bounds)"
+                 if fold_unproven else "(all proven)")
+    print(f"n4_fold_price.jsonl: {n_f} fold circuits verified {flag_note}")
 
     if fails:
         print(f"\nFAILURES ({len(fails)}):")

@@ -67,8 +67,8 @@ ALL CHECKS PASSED
   structure.
 - **Decomposable ≠ decomposed.** 46 of the 48 disjoint-decomposable
   classes pay a strictly positive premium for *any* circuit that respects
-  their block structure (modal premium: +2; category means 2.3–3.3; two
-  classes fold at no cost). For XOR- and MUX-type decompositions the
+  their block structure (modal premium: +2, on 25 of 48 classes; category
+  means 2.3–3.3; two classes fold at no cost; all 48 records proven). For XOR- and MUX-type decompositions the
   premium provably includes a depth-3 requirement: a depth-2 circuit whose
   first layer is confined to the blocks computes `[F_A(x_A) + F_B(x_B) ≥ 0]`,
   and a 2×2 exchange argument shows no such split realizes an XOR/MUX
@@ -88,9 +88,10 @@ ALL CHECKS PASSED
   `proven: false`:
   - `n4_atlas.jsonl`: **3 frontier points**, all on class 0x6996 (parity),
     each a verified upper bound carrying a wire lower bound (`wlb`).
-  - `n4_fold_price.jsonl`: **12 of 48 records** — their premiums are
-    verified **upper bounds** (a longer certification pass can only lower
-    them).
+  - `n4_fold_price.jsonl`: **none** — as of v1.0.1 all 48 records are
+    proven. (v1.0.0 flagged 12; the certification recheck closed all 12
+    without changing any premium — every flagged upper bound was already
+    tight.)
 - **Witness non-uniqueness.** A stored circuit is *one* minimum-cost
   circuit; minimum-cost circuits are generally not unique, and
   structural statements about "the" optimum should be phrased as
@@ -167,5 +168,5 @@ releases are immutable reference points):
 
 ```
 Atlas: exact minimal threshold circuits for all 4-input Boolean functions.
-https://github.com/zane31415/Atlas, v1.0.0, 2026.
+https://github.com/zane31415/Atlas, v1.0.1, 2026.
 ```

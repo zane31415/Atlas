@@ -86,7 +86,15 @@ split, depth, ckt    : the best fold circuit found (verified)
 proven               : true = no cheaper fold-respecting circuit exists
                        (exhaustive within the search cap); false = premium
                        is an upper bound (solver time-limit)
+inf_ub               : OPTIONAL (present on records that went through the
+                       certification recheck): per-candidate map
+                       "bipartition#arch#split" -> largest cost budget at
+                       which that candidate was proven infeasible
+                       (solver bookkeeping; consumers may ignore it)
 ```
+
+As of v1.0.1 **all 48 records are proven** (the earlier 12 `proven: false`
+flags were closed by a certification recheck; no premium changed).
 
 ## n4_categories.jsonl — one line per class with a cached free optimum (221 lines)
 
