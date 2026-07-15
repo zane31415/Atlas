@@ -58,7 +58,10 @@ ALL CHECKS PASSED
   their minimum-wire gates are stored.
 - **Depth never pays at free weights at n=4**: every free-regime optimum
   is depth ≤ 2. Depth-3 realizations only become competitive under weight
-  caps — and even then only as frontier points, never dominating.
+  caps: at |w| ≤ 2 they appear only as wire-saving frontier points, but at
+  |w| ≤ 1 a depth-3 circuit is the strict `wires+gates` optimum for 13 of
+  the 222 classes (all proven; for three of them no depth-2 point makes
+  the frontier at all).
 - **33 of 222 classes have a genuine gate↔wire tradeoff under weight caps**
   (a multi-point Pareto frontier). 30 of the 33 are binate in all four
   variables; XOR-decomposable classes hit the tradeoff at 54% vs a 15%
