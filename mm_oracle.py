@@ -5,7 +5,17 @@ feedforward integer-weight THRESHOLD circuit of a given architecture,
 via scipy.optimize.milp (HiGHS). General threshold gates at every layer
 including the output (required for NPN soundness, MM_log DP-1). The
 threshold/bias is free; cost = total nonzero input weights = total
-wires (the Kane-Williams quantity).
+wires.
+
+MODEL (load-bearing): STRICT LAYERED. Each layer reads only the previous
+layer, so the output gate cannot see the raw inputs — no skip
+connections. The standard circuit-complexity model allows them and the
+restriction is not free; see the model note in README.md. Earlier
+revisions of this docstring called the wire count "the Kane-Williams
+quantity"; that was wrong, because Kane-Williams (STOC 2016,
+arXiv:1511.07860) let the output gate read input variables as well as
+previous gate outputs. What this oracle computes is an upper bound on
+their quantity, in the layered model.
 
 Architecture is a list of hidden-layer sizes:
   []     -> depth-1 (single output gate reading inputs)

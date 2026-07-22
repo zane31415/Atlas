@@ -9,8 +9,33 @@ of every stored circuit and explicit flags on every value whose optimality
 proof is incomplete.
 
 The cost model is **evaluation cost**: `cost = wires + gates`, where wires
-= nonzero weights (the interconnect quantity of Kane–Williams, STOC 2016)
-and gates = threshold nodes. Three weight regimes are tabulated:
+= nonzero weights (the interconnect currency of Kane–Williams, STOC 2016 —
+but see the model note below) and gates = threshold nodes. Three weight
+regimes are tabulated:
+
+> ### ⚠️ Model scope: every cost here is a **strict-layered-model** cost
+>
+> In this atlas each gate reads **only the previous layer**, so the output
+> gate cannot read the raw inputs — no skip connections. The standard model
+> in circuit complexity *does* allow them, and the restriction is not free.
+> Measured exhaustively at n=4: **all 207 non-LTF classes get cheaper once
+> skips are allowed**, by a median of 2 and a mean of 2.86, and **parity-4
+> drops from 25 to 17** (both values CP-SAT–proven). Only the 15 depth-1
+> classes are unaffected, trivially. The tax is *non-uniform*: 4.8% of class
+> pairs swap cost order, so it is not a harmless rescaling.
+>
+> This also qualifies the Kane–Williams reference above. Their LTF∘LTF model
+> lets the output gate read input variables as well as previous gate outputs
+> — i.e. it *admits* skips — so the costs tabulated here are a strictly
+> larger quantity than the one they bound. Earlier revisions of this README
+> and of `mm_oracle.py` attributed the cost model to them without that
+> qualification; that attribution was wrong and is corrected here.
+>
+> Everything below is correct and proven **within the layered model**. Read
+> "minimum cost" as "minimum cost among strict-layered circuits" throughout.
+> The skip-model measurements are not yet published in this repository; this
+> repository ships proven values only, and that table will land when it is
+> packaged to the same standard as the data here.
 
 | regime | what is stored |
 |---|---|
@@ -143,9 +168,20 @@ nothing).
   independent cross-check; the atlas extends the enumeration from single
   gates to minimum-cost multi-gate circuits.
 - **The cost model** (wires = nonzero weights as the complexity currency)
-  is the quantity of D. M. Kane and R. Williams, "Super-linear gate and
+  follows D. M. Kane and R. Williams, "Super-linear gate and
   super-quadratic wire lower bounds for depth-two and depth-three threshold
-  circuits," *STOC 2016* (arXiv:1511.07860).
+  circuits," *STOC 2016* (arXiv:1511.07860) — in the *currency*, not in the
+  *circuit model*: their LTF∘LTF gates may read input variables as well as
+  previous gate outputs, whereas this atlas is strictly layered (see the
+  model note at the top). The values here are therefore an upper bound on
+  the Kane–Williams quantity, not equal to it.
+- **The layered restriction itself** is a studied class: A. Gál and
+  J.-T. K. Jang, "The size and depth of layered Boolean circuits,"
+  *Information Processing Letters* 111(5):213–217, 2011. In the neural-net
+  setting the same asymmetry appears as H. Lin and S. Jegelka, "ResNet with
+  one-neuron hidden layers is a universal approximator," *NeurIPS 2018*
+  (arXiv:1806.10909): skip connections make width-1 layers universal while
+  plain narrow nets are not.
 - **The nearest relative in spirit** is Knuth's exhaustive small-n
   optimal-circuit computation for 4- and 5-variable functions over
   two-input Boolean gates (*TAOCP* Vol. 4A, §7.1.2, "Boolean evaluation").
