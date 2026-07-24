@@ -35,11 +35,36 @@ DATA = Path(__file__).resolve().parent.parent / "data"
 
 # ---------------------------------------------------------------- evaluation
 
+def gate_sources(L, w, prev, x):
+    """The activation vector a gate's weights line up against.
+
+    Layer 1 reads the inputs. A later gate reads the previous layer's
+    outputs, and MAY additionally read the raw inputs (a skip connection),
+    in which case its weight vector is [previous-layer weights..., raw-input
+    weights...] and is exactly N longer. The width is what distinguishes the
+    two, so strict-layered and skip circuits share one file format and one
+    evaluator; n4_atlas.jsonl contains only the former, n4_skip.jsonl the
+    latter.
+    """
+    if L == 0:
+        if len(w) != len(x):
+            raise ValueError(f"layer-1 gate has {len(w)} weights, expected {len(x)}")
+        return x
+    if len(w) == len(prev):
+        return prev                              # strict layered
+    if len(w) == len(prev) + len(x):
+        return list(prev) + list(x)              # with skip connections
+    raise ValueError(f"gate has {len(w)} weights; expected {len(prev)} "
+                     f"(layered) or {len(prev) + len(x)} (skip)")
+
+
 def eval_circuit(ckt, x):
     """x = list of 4 bits; returns the output bit."""
-    prev = x
-    for layer in ckt:
-        prev = [1 if sum(w * v for w, v in zip(g[:-1], prev)) + g[-1] >= 0 else 0
+    prev = list(x)
+    for L, layer in enumerate(ckt):
+        prev = [1 if sum(w * v for w, v in
+                         zip(g[:-1], gate_sources(L, g[:-1], prev, x))) + g[-1] >= 0
+                else 0
                 for g in layer]
     return prev[0]
 
@@ -85,21 +110,41 @@ def npn_canon(T):
 
 
 def transform_circuit(ckt, perm, neg, flip):
-    """Apply an input permutation/negation to layer 1 and an output negation
-    to the final gate. Correctness is not derived from convention: the
-    caller tries group elements until the transformed circuit VERIFIES."""
-    l1 = []
-    for g in ckt[0]:
-        w, b = list(g[:-1]), g[-1]
-        nw = [0] * N
-        for j in range(N):
-            wj = w[j]
-            if (neg >> j) & 1:
-                b += wj
-                wj = -wj
-            nw[perm[j]] = wj
-        l1.append(nw + [b])
-    new = [l1] + [[list(g) for g in layer] for layer in ckt[1:]]
+    """Apply an input permutation/negation to every gate that reads the raw
+    inputs, and an output negation to the final gate.
+
+    In a strict-layered circuit only layer 1 reads the inputs. With skip
+    connections a later gate reads them too, in the tail N slots of its
+    weight vector, and those slots need exactly the same permutation and
+    negation as layer 1 — transforming layer 1 alone would silently produce
+    a circuit for a different function. Correctness is not derived from
+    convention: the caller tries group elements until the transformed
+    circuit VERIFIES against the requested table.
+    """
+    new, nprev = [], N
+    for L, layer in enumerate(ckt):
+        out = []
+        for g in layer:
+            w, b = list(g[:-1]), g[-1]
+            if L == 0:
+                head, tail = [], w                    # all slots are inputs
+            elif len(w) == nprev + N:
+                head, tail = w[:nprev], w[nprev:]     # skip: tail is inputs
+            else:
+                head, tail = w, []                    # layered: no input slots
+            if tail:
+                nt = [0] * N
+                for j in range(N):
+                    wj = tail[j]
+                    if (neg >> j) & 1:
+                        b += wj
+                        wj = -wj
+                    nt[perm[j]] = wj
+            else:
+                nt = []
+            out.append(list(head) + nt + [b])
+        new.append(out)
+        nprev = len(layer)
     if flip:
         g = new[-1][0]
         new[-1][0] = [-w for w in g[:-1]] + [-g[-1] - 1]
@@ -138,6 +183,15 @@ def load_constructive():
     return recs
 
 
+def load_skip():
+    recs = {}
+    with open(DATA / "n4_skip.jsonl") as f:
+        for line in f:
+            r = json.loads(line)
+            recs[r["canon"]] = r
+    return recs
+
+
 def pick_circuit(rec, regime, metric):
     if regime == "free":
         e = rec["regimes"]["free"]["balanced_11"]
@@ -154,8 +208,13 @@ def pick_circuit(rec, regime, metric):
 def fmt(ckt):
     lines = []
     for L, layer in enumerate(ckt):
-        src = [f"x{j}" for j in range(N)] if L == 0 else \
-              [f"h{L-1}_{j}" for j in range(len(ckt[L-1]))]
+        if L == 0:
+            src = [f"x{j}" for j in range(N)]
+        else:
+            src = [f"h{L-1}_{j}" for j in range(len(ckt[L - 1]))]
+            # a skip gate's weight vector carries N extra raw-input slots
+            if layer and len(layer[0]) - 1 == len(src) + N:
+                src = src + [f"x{j}" for j in range(N)]
         for gi, g in enumerate(layer):
             terms = " + ".join(f"{w}*{s}" for w, s in zip(g[:-1], src) if w != 0)
             name = "out" if L == len(ckt) - 1 else f"h{L}_{gi}"
@@ -166,6 +225,11 @@ def fmt(ckt):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("table", help="16-bit truth table, e.g. 0x6996 or 27030")
+    ap.add_argument("--model", choices=["skip", "layered"], default="skip",
+                    help="skip (default) = the standard circuit model, where a "
+                         "gate may also read the raw inputs; layered = every "
+                         "gate reads only the previous layer. Free weights "
+                         "only for skip; the capped regimes are layered-only.")
     ap.add_argument("--regime", choices=["free", "w2", "w1"], default="free")
     ap.add_argument("--metric", default="balanced_11",
                     choices=["balanced_11", "node_primary", "wire_primary",
@@ -186,8 +250,23 @@ def main():
     canon = npn_canon(T)
     rec = load_atlas()[canon]
 
-    info = None
-    if args.constructive and args.regime == "free":
+    if args.model == "skip":
+        if args.regime != "free":
+            sys.exit("--model skip has free weights only; the |w|<=2 and |w|<=1 "
+                     "Pareto frontiers are tabulated in the layered model. Use "
+                     "--model layered with --regime, or drop --regime.")
+        if args.constructive:
+            sys.exit("--constructive is a layered-model table; use --model layered.")
+        s = load_skip()[canon]
+        ckt = s["ckt"]
+        info = dict(proven=s["proven"], cost=s["cost"],
+                    source=f"exact solver (skip model, free weights, W={s['W']}); "
+                           f"layered cost for the same class is {s['layered_cost']}"
+                           + (f", so the layering restriction costs {s['tax']}"
+                              if s["tax"] else " (unaffected: depth 1)"))
+    else:
+        info = None
+    if info is None and args.constructive and args.regime == "free":
         c = load_constructive().get(canon)
         if c is not None:
             ckt, info = c["ckt"], dict(proven=True, cost=c["cost"],

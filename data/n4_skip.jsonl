@@ -1,0 +1,222 @@
+{"canon": 0, "cost": 0, "g": 0, "w": 0, "mw": 0, "arch": [], "proven": true, "W": 7, "ckt": [[[0, 0, 0, 0, -29]]], "layered_cost": 0, "tax": 0}
+{"canon": 1, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-7, -7, -7, -7, 0]]], "layered_cost": 5, "tax": 0}
+{"canon": 3, "cost": 4, "g": 1, "w": 3, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[0, -7, -7, -7, 0]]], "layered_cost": 4, "tax": 0}
+{"canon": 6, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -1, -7, -7, 6]], [[2, 1, 1, 0, 0, -3]]], "layered_cost": 11, "tax": 2}
+{"canon": 7, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-6, -1, -7, -7, 6]]], "layered_cost": 5, "tax": 0}
+{"canon": 15, "cost": 3, "g": 1, "w": 2, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[0, 0, -7, -7, 0]]], "layered_cost": 3, "tax": 0}
+{"canon": 22, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, -7, -7, 5, 2]], [[-7, -6, -6, -6, 0, 6]]], "layered_cost": 12, "tax": 2}
+{"canon": 23, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-1, -1, -1, -7, 1]]], "layered_cost": 5, "tax": 0}
+{"canon": 24, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-2, 3, 1, -1, -1]], [[7, 1, -6, -5, 0, -2]]], "layered_cost": 12, "tax": 2}
+{"canon": 25, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -6, -5, -7, 5]], [[7, -1, 1, 0, 0, -7]]], "layered_cost": 11, "tax": 2}
+{"canon": 27, "cost": 8, "g": 2, "w": 6, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 0, 1, 3, -3]], [[-2, 1, -1, 0, 0, 0]]], "layered_cost": 10, "tax": 2}
+{"canon": 30, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -1, 7, 0, -7]], [[3, 1, 1, -2, -7, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 31, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-1, -1, -6, -7, 6]]], "layered_cost": 5, "tax": 0}
+{"canon": 60, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, 0, -1]], [[4, 0, -3, -3, -7, -1]]], "layered_cost": 10, "tax": 2}
+{"canon": 61, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -4, 5, 0, -5]], [[3, -1, 1, -2, -7, 0]]], "layered_cost": 11, "tax": 2}
+{"canon": 63, "cost": 4, "g": 1, "w": 3, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[0, -6, -6, -7, 6]]], "layered_cost": 4, "tax": 0}
+{"canon": 105, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -7, -7, 0, 6]], [[2, -1, 1, 1, -7, -2]]], "layered_cost": 16, "tax": 6}
+{"canon": 107, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 7, 7, 0, -14]], [[2, 1, -1, -1, -7, 0]]], "layered_cost": 13, "tax": 3}
+{"canon": 111, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -1, 0, 0, -1]], [[2, -1, 1, -6, -7, 5]]], "layered_cost": 12, "tax": 3}
+{"canon": 126, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 7, -6, 0, -1]], [[3, 1, -2, 1, -7, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 127, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-5, -1, -1, -7, 6]]], "layered_cost": 5, "tax": 0}
+{"canon": 255, "cost": 2, "g": 1, "w": 1, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[0, 0, 0, -7, 0]]], "layered_cost": 2, "tax": 0}
+{"canon": 278, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 2, 6, -1]], [[3, 1, -1, -2, -2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 279, "cost": 5, "g": 1, "w": 4, "mw": 1, "arch": [], "proven": true, "W": 7, "ckt": [[[-1, -1, -1, -1, 1]]], "layered_cost": 5, "tax": 0}
+{"canon": 280, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, 2, -2]], [[4, -1, -1, 1, -3, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 281, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[7, 7, 0, 0, -9]], [[3, -2, -2, -1, -1, 1]]], "layered_cost": 11, "tax": 2}
+{"canon": 282, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, 1, 1, -1]], [[2, 1, 0, -1, -1, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 283, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, 0, -1]], [[-7, 1, 0, -6, -6, 6]]], "layered_cost": 10, "tax": 2}
+{"canon": 286, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -5, 7, 7, -3]], [[7, 1, 1, -6, -6, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 287, "cost": 5, "g": 1, "w": 4, "mw": 7, "arch": [], "proven": true, "W": 7, "ckt": [[[-6, -6, -7, -7, 12]]], "layered_cost": 5, "tax": 0}
+{"canon": 300, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -7, 7, 1, -1]], [[7, 1, 4, -5, -4, -3]]], "layered_cost": 13, "tax": 2}
+{"canon": 301, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -6, -7, -6, 6]], [[7, -5, 1, 1, 0, -3]]], "layered_cost": 12, "tax": 2}
+{"canon": 303, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -7, 0, 7, -1]], [[2, -1, 0, -6, -7, 5]]], "layered_cost": 11, "tax": 2}
+{"canon": 316, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, -7, 6, 1, -1]], [[2, 0, 1, -1, -1, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 317, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -6, -6, 7, 5]], [[-7, -5, -6, -6, 0, 11]]], "layered_cost": 11, "tax": 2}
+{"canon": 318, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, -5, 4, 1, -1]], [[7, 5, 1, -6, -6, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 319, "cost": 5, "g": 1, "w": 4, "mw": 3, "arch": [], "proven": true, "W": 7, "ckt": [[[-1, -2, -2, -3, 3]]], "layered_cost": 5, "tax": 0}
+{"canon": 360, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 2, 1, -3, 2]], [[-5, -4, 1, 1, -3, 3]]], "layered_cost": 13, "tax": 2}
+{"canon": 361, "cost": 10, "g": 2, "w": 8, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[5, 1, 5, -5, -6]], [[5, -4, -4, -4, 0, 3]]], "layered_cost": 15, "tax": 5}
+{"canon": 362, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, -4, 6, 1, -1]], [[6, 2, 1, -5, -4, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 363, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 7, -7, 0, 0]], [[7, 4, -5, 1, -4, -3]]], "layered_cost": 15, "tax": 5}
+{"canon": 366, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, -7, -1]], [[4, -1, -1, -2, 1, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 367, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, -7, -1]], [[2, -1, -1, -1, 0, 0]]], "layered_cost": 12, "tax": 3}
+{"canon": 382, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[3, -2, -2, 1, -1]], [[5, -3, 1, 1, -4, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 383, "cost": 5, "g": 1, "w": 4, "mw": 2, "arch": [], "proven": true, "W": 7, "ckt": [[[-1, -1, -1, -2, 2]]], "layered_cost": 5, "tax": 0}
+{"canon": 384, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, -2, -2, -7, 5]], [[-7, -1, -1, -1, -3, 3]]], "layered_cost": 13, "tax": 2}
+{"canon": 385, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -7, -7, 0, 0]], [[6, 1, 1, 1, -3, -3]]], "layered_cost": 12, "tax": 2}
+{"canon": 386, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 6, 2, 1, -1]], [[4, 3, -2, -2, -1, -3]]], "layered_cost": 13, "tax": 2}
+{"canon": 387, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, -7, 7, 2, -3]], [[-3, 1, -2, 1, 0, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 390, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 7, 1, 2, -2]], [[6, 1, -5, -1, -5, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 391, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -7, 1, 0, 5]], [[4, -2, 3, -3, -2, -2]]], "layered_cost": 12, "tax": 2}
+{"canon": 393, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, -1, -1, 0, 0]], [[7, -2, 1, 0, -1, -6]]], "layered_cost": 11, "tax": 2}
+{"canon": 395, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 1, -1, -2, -2]], [[7, -1, -1, -1, 0, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 399, "cost": 9, "g": 2, "w": 7, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, 2, -3]], [[-3, 1, 1, -2, 0, 0]]], "layered_cost": 11, "tax": 2}
+{"canon": 406, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 7, 1, -1]], [[3, 1, -1, -2, -2, -1]]], "layered_cost": 17, "tax": 6}
+{"canon": 407, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -1, 7, 0, -1]], [[-3, -2, -2, 1, -3, 3]]], "layered_cost": 13, "tax": 3}
+{"canon": 408, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 2, -1, 3, -3]], [[6, -2, -2, 1, -5, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 409, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[3, -6, -2, -5, 5]], [[7, -1, 6, 0, 0, -7]]], "layered_cost": 11, "tax": 2}
+{"canon": 410, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, 1, 1, -1]], [[5, 3, 1, -2, -3, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 411, "cost": 9, "g": 2, "w": 7, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, 1, 0, 0, -1]], [[-5, -3, 1, -1, -3, 3]]], "layered_cost": 11, "tax": 2}
+{"canon": 414, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -1, 1, 1, -1]], [[4, 2, 1, -2, -3, -1]]], "layered_cost": 16, "tax": 5}
+{"canon": 415, "cost": 9, "g": 2, "w": 7, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -6, 0, 4]], [[5, -2, -4, 0, -6, 1]]], "layered_cost": 12, "tax": 3}
+{"canon": 424, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[4, 1, 3, -4, -5]], [[7, -1, -1, -1, 1, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 425, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[7, 1, 1, -7, -8]], [[3, -1, -1, -1, 0, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 426, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, -7, 7, -7]], [[2, 1, 0, 0, -1, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 427, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 0, 0, 1, 6]], [[-7, -1, -3, -3, 0, 7]]], "layered_cost": 10, "tax": 2}
+{"canon": 428, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-4, 5, -5, 2, -1], [1, 0, 1, 0, -2]], [[7, 5, 0, -2, 0, -6, -1]]], "layered_cost": 15, "tax": 2}
+{"canon": 429, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[5, 1, 4, -4, -6]], [[7, -5, -1, -3, -2, 2]]], "layered_cost": 13, "tax": 2}
+{"canon": 430, "cost": 10, "g": 2, "w": 8, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -1, 0, 1, -1]], [[5, 2, 1, -1, -4, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 431, "cost": 8, "g": 2, "w": 6, "mw": 2, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, 2, -3]], [[-2, 1, 0, -1, 0, 0]]], "layered_cost": 10, "tax": 2}
+{"canon": 444, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -7, 2, 1, -1]], [[5, 1, 3, -2, -3, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 445, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, 5, -7, 0, 0]], [[5, 1, -2, 3, -3, -2]]], "layered_cost": 12, "tax": 2}
+{"canon": 446, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, -7, 6, 1, -1]], [[7, -1, 2, -2, -6, -1]]], "layered_cost": 16, "tax": 5}
+{"canon": 447, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, 0, 1, 0, -1]], [[-6, -1, -5, 0, -7, 7]]], "layered_cost": 11, "tax": 3}
+{"canon": 488, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -6, -6, -7, 6]], [[-7, -4, -1, -1, -6, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 489, "cost": 10, "g": 2, "w": 8, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 1, -2, -2]], [[3, -1, -1, -1, 0, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 490, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, -7, 1, -1]], [[5, 2, 1, 1, -3, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 491, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[3, 2, 1, -7, -3]], [[5, -1, -1, -1, 0, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 494, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, -7, -1]], [[4, -1, -1, -1, 1, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 495, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -7, -6, 0, 0]], [[3, 1, 1, 0, -2, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 510, "cost": 11, "g": 2, "w": 9, "mw": 4, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -1, -1, 1, -1]], [[4, 1, 1, 1, -3, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 828, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -7, 1, 1, -1]], [[2, 0, 1, -1, -1, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 829, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 7, 7, -7, -1]], [[6, -3, -5, -5, 1, 2]]], "layered_cost": 12, "tax": 2}
+{"canon": 831, "cost": 4, "g": 1, "w": 3, "mw": 1, "arch": [], "proven": true, "W": 7, "ckt": [[[0, -1, -1, -1, 1]]], "layered_cost": 4, "tax": 0}
+{"canon": 854, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 1, 1, 7, -1]], [[5, 1, -2, -2, -4, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 855, "cost": 7, "g": 2, "w": 5, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, 0, -1]], [[-7, -1, 0, 0, -1, 7]]], "layered_cost": 9, "tax": 2}
+{"canon": 856, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-5, -4, 6, -7, 6], [-4, 0, 2, 0, -2]], [[-7, 6, 0, -2, 0, -6, 6]]], "layered_cost": 16, "tax": 3}
+{"canon": 857, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[2, 1, 3, -7, -3], [-7, 0, 0, 1, 6]], [[3, 2, 0, -1, -2, 0, -2]]], "layered_cost": 16, "tax": 3}
+{"canon": 858, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, -2, 4, 6, -1]], [[5, 2, -1, -3, -4, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 859, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -6, -7, -1, 5]], [[6, -2, 0, 3, -2, -2]]], "layered_cost": 12, "tax": 2}
+{"canon": 862, "cost": 13, "g": 3, "w": 10, "mw": 6, "arch": [2], "proven": true, "W": 7, "ckt": [[[1, 1, 5, -6, -1], [0, -5, 0, 1, -1]], [[4, 3, -2, 0, -3, 0, -1]]], "layered_cost": 16, "tax": 3}
+{"canon": 863, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 2, 1, -2]], [[-7, -1, 0, 0, -1, 7]]], "layered_cost": 10, "tax": 2}
+{"canon": 872, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 1, -7, -2]], [[5, -1, -2, -2, 2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 873, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -7, 2, 1, 5]], [[7, 1, 1, -6, -1, -2]]], "layered_cost": 16, "tax": 5}
+{"canon": 874, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 1, 1, -7, -2]], [[6, -1, -2, -3, 2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 875, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 2, 3, 0, -5]], [[6, 1, -5, -5, -4, 4]]], "layered_cost": 13, "tax": 3}
+{"canon": 876, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 2, 1, -7, -2]], [[5, -1, -2, -2, 2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 877, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 2, -6, 1, 4]], [[7, 1, -5, 1, -2, -2]]], "layered_cost": 16, "tax": 5}
+{"canon": 878, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-2, -7, 0, -7, 0]], [[-7, -1, -4, -2, -5, 6]]], "layered_cost": 12, "tax": 2}
+{"canon": 879, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 0, -7, -1]], [[4, -1, -3, -3, 0, 2]]], "layered_cost": 12, "tax": 3}
+{"canon": 892, "cost": 10, "g": 2, "w": 8, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -4, -2, -5, 6]], [[6, 0, 2, 1, 1, -7]]], "layered_cost": 12, "tax": 2}
+{"canon": 893, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -1, -1, 7, 0]], [[-7, -1, -2, -5, 1, 7]]], "layered_cost": 13, "tax": 3}
+{"canon": 894, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -5, -2, -6, 7]], [[5, 1, 1, 1, 1, -6]]], "layered_cost": 13, "tax": 2}
+{"canon": 960, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -7, -7, 7, 8]], [[-7, 0, -5, -1, 1, 6]]], "layered_cost": 11, "tax": 2}
+{"canon": 961, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 7, 1, -1, -8]], [[5, -1, -2, -2, 1, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 963, "cost": 8, "g": 2, "w": 6, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -7, -7, 0, 6]], [[7, 0, 1, 1, -5, -2]]], "layered_cost": 10, "tax": 2}
+{"canon": 965, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, 2, 1, -7, -2]], [[5, -1, -2, -2, 1, 0]]], "layered_cost": 13, "tax": 2}
+{"canon": 966, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-4, 5, 1, 6, -2]], [[7, 1, -3, -3, -5, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 967, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, 0, -1]], [[-7, -1, 2, 1, -4, 5]]], "layered_cost": 11, "tax": 2}
+{"canon": 975, "cost": 7, "g": 2, "w": 5, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -7, 0, 1, 6]], [[-7, 0, -1, -1, 0, 7]]], "layered_cost": 9, "tax": 2}
+{"canon": 980, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 1, 6, -7, -1]], [[4, 0, -1, -1, 2, -2]]], "layered_cost": 12, "tax": 2}
+{"canon": 981, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 2, -1, 1, -1]], [[7, -2, -6, 1, -5, 0]]], "layered_cost": 12, "tax": 2}
+{"canon": 982, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-4, 4, 4, -7, -2]], [[5, 1, -2, -2, 1, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 983, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, 0, -1]], [[-7, -1, 1, 1, -2, 6]]], "layered_cost": 11, "tax": 2}
+{"canon": 984, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-5, 1, 0, -6, 4], [0, 1, -7, -6, 5]], [[2, -7, 1, 0, -6, 0, 4]]], "layered_cost": 15, "tax": 2}
+{"canon": 985, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, 0, -6, 7, 2], [1, -7, 0, -4, -1]], [[-2, -7, 0, -1, -1, 0, 2]]], "layered_cost": 15, "tax": 2}
+{"canon": 987, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -2, 6, 3, -7]], [[-4, 1, -2, 1, -1, 1]]], "layered_cost": 13, "tax": 2}
+{"canon": 988, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, -7, -7, 7, -7]], [[6, -1, 3, 1, -4, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 989, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, -1, 0]], [[-7, -1, 1, 0, -6, 7]]], "layered_cost": 11, "tax": 2}
+{"canon": 990, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, 2, 1, -3, -1]], [[7, 1, -2, -3, 1, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 1020, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, 1, -7, -1]], [[3, 0, -1, -1, 1, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 1632, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, -6, -6, 12]], [[-7, -5, -5, -1, -1, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 1633, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, -7, 6]], [[7, -3, -3, 3, 3, -7]]], "layered_cost": 13, "tax": 2}
+{"canon": 1634, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, -6, -1, -1, 6]], [[-4, 2, -2, -1, -1, 3]]], "layered_cost": 13, "tax": 2}
+{"canon": 1635, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 3, 1, 1, -4]], [[3, 1, -2, -1, -1, 0]]], "layered_cost": 13, "tax": 2}
+{"canon": 1638, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 0, 0, -1]], [[7, 2, -5, -1, -1, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 1639, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[7, -7, 0, 0, -6]], [[4, -3, 1, -2, -2, 1]]], "layered_cost": 11, "tax": 2}
+{"canon": 1641, "cost": 11, "g": 2, "w": 9, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 2, -2, -2, -1]], [[-3, 1, 1, -2, -2, 1]]], "layered_cost": 17, "tax": 6}
+{"canon": 1643, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, 3, 3, 4]], [[7, 2, 1, -6, -6, -2]]], "layered_cost": 17, "tax": 6}
+{"canon": 1647, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[7, 7, 0, 0, -8]], [[-2, 1, 1, -1, -1, 0]]], "layered_cost": 13, "tax": 4}
+{"canon": 1650, "cost": 13, "g": 3, "w": 10, "mw": 4, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[-2, 1, 2, 1, -2]], [[2, 1, -1, 0, 0, -1]], [[4, 0, 0, -3, -3, -1]]], "layered_cost": 15, "tax": 2}
+{"canon": 1651, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 3, 1, 1, -4]], [[6, 1, -5, -3, -4, 3]]], "layered_cost": 13, "tax": 2}
+{"canon": 1654, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 2, 1, -1, -1]], [[4, 2, -2, -1, -1, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 1656, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 2, -6, 2, -3]], [[4, -1, -1, 2, -2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 1657, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, 1, 7, 6]], [[7, 1, 1, -2, -6, -2]]], "layered_cost": 16, "tax": 5}
+{"canon": 1658, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 3, 1, -2]], [[4, 3, -1, -2, -2, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 1659, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, 7, 2, 2, -9]], [[6, 1, -5, -4, -5, 4]]], "layered_cost": 16, "tax": 5}
+{"canon": 1662, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, 0, -1]], [[7, -1, -1, 2, -5, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 1680, "cost": 11, "g": 2, "w": 9, "mw": 4, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 2, -1, 1, -3]], [[4, -2, -2, 1, -1, -1]]], "layered_cost": 15, "tax": 4}
+{"canon": 1681, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[3, 4, 1, 5, -8]], [[4, -2, -2, -1, -3, 1]]], "layered_cost": 16, "tax": 5}
+{"canon": 1683, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 5, 2, -3, 0]], [[7, 3, -5, -2, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 1686, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 7, 0, -1]], [[7, 3, -4, -5, -2, -1]]], "layered_cost": 15, "tax": 5}
+{"canon": 1687, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 2, 1, -4, 2]], [[7, 1, -6, -1, 0, -1]]], "layered_cost": 15, "tax": 5}
+{"canon": 1695, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -1, 6, 0, 0]], [[-7, -6, -6, 0, -6, 12]]], "layered_cost": 14, "tax": 5}
+{"canon": 1712, "cost": 13, "g": 3, "w": 10, "mw": 4, "arch": [2], "proven": true, "W": 7, "ckt": [[[-4, -2, -3, 0, 4], [0, 0, 1, 1, -1]], [[3, 4, 2, 1, 0, -2, -6]]], "layered_cost": 16, "tax": 3}
+{"canon": 1713, "cost": 14, "g": 3, "w": 11, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-7, 6, 0, 2, -1], [0, 0, -2, -4, 0]], [[-4, -6, -2, 1, -4, -3, 6]]], "layered_cost": 16, "tax": 2}
+{"canon": 1714, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-2, 1, -2, 0, 1], [1, -1, 0, -5, 5]], [[-7, -3, 0, 0, -6, -2, 9]]], "layered_cost": 15, "tax": 2}
+{"canon": 1715, "cost": 13, "g": 3, "w": 10, "mw": 6, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, 3, 0, -6, 3], [0, 0, -6, 2, -1]], [[5, 2, 1, -4, 1, 0, -3]]], "layered_cost": 16, "tax": 3}
+{"canon": 1716, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[2, 4, -3, 1, -3], [0, 0, -7, 7, 0]], [[5, -4, -3, -4, 0, 0, 3]]], "layered_cost": 16, "tax": 3}
+{"canon": 1717, "cost": 14, "g": 3, "w": 11, "mw": 6, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, 1, 3, -1, 0], [5, -5, 0, -5, 0]], [[6, 2, 0, 0, -5, 1, -3]]], "layered_cost": 17, "tax": 3}
+{"canon": 1718, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -6, 6, 1, 0]], [[-6, -2, -4, 1, -1, 5]]], "layered_cost": 15, "tax": 4}
+{"canon": 1719, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 7, -1, 0]], [[5, 2, -3, -4, -2, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 1721, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -7, 1, 6, 5]], [[5, 2, 2, -1, -4, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 1725, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 2, 1, -6, 4]], [[7, 2, -2, -4, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 1776, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, -5, -7, -6, 6]], [[-7, -2, -1, -3, -4, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 1777, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -6, -7, 6]], [[7, -1, -1, 2, 1, -7]]], "layered_cost": 13, "tax": 2}
+{"canon": 1778, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-5, -6, -5, 1, 5], [0, 0, -1, 1, 0]], [[2, -7, 1, 1, 0, 0, 4]]], "layered_cost": 15, "tax": 2}
+{"canon": 1782, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 7, 6, -1, -6]], [[4, 2, -2, -1, -1, -1]]], "layered_cost": 14, "tax": 3}
+{"canon": 1785, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 2, 3, 2, -3]], [[5, -1, -1, -2, -4, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 1910, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[-7, -2, -3, -3, 1]], [[-2, -1, -1, 0, 0, 1]], [[4, 0, 0, -2, -2, -1]]], "layered_cost": 15, "tax": 2}
+{"canon": 1912, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, 2, -2]], [[6, -2, -2, 3, -3, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 1913, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -7, 3, 3, 4]], [[7, 2, 2, -3, -3, -4]]], "layered_cost": 16, "tax": 5}
+{"canon": 1914, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 0, -7, 1, -1]], [[4, -1, -1, 2, -2, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 1918, "cost": 11, "g": 2, "w": 9, "mw": 4, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, -3, -4, -4, 7]], [[4, 1, 1, 1, 1, -5]]], "layered_cost": 13, "tax": 2}
+{"canon": 1968, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, -1, -7, 4, -1]], [[5, 1, -1, 2, -2, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 1969, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 1, -6, -7, 5]], [[-7, -2, -2, -4, -6, 8]]], "layered_cost": 13, "tax": 2}
+{"canon": 1972, "cost": 14, "g": 3, "w": 11, "mw": 5, "arch": [2], "proven": true, "W": 7, "ckt": [[[-1, 2, 2, 3, -4], [-4, 1, -5, 0, -1]], [[-4, 5, 0, 0, 1, 2, -1]]], "layered_cost": 16, "tax": 2}
+{"canon": 1973, "cost": 11, "g": 2, "w": 9, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, -4, -6, 1, 4]], [[5, 1, -1, 2, -2, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 1974, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-5, -6, 7, -4, 3], [0, 0, 2, -7, -2]], [[-6, 3, -2, -4, 0, 0, 5]]], "layered_cost": 16, "tax": 3}
+{"canon": 1980, "cost": 14, "g": 3, "w": 11, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-6, -7, -1, 0, 7], [0, -3, -2, -7, 0]], [[2, -5, 1, 0, -2, -3, 1]]], "layered_cost": 16, "tax": 2}
+{"canon": 2016, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -6, -7, 7, 12]], [[-5, -1, -1, -2, 2, 4]]], "layered_cost": 13, "tax": 2}
+{"canon": 2017, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 7, -7, -8]], [[4, -1, -1, -2, 1, 0]]], "layered_cost": 13, "tax": 2}
+{"canon": 2018, "cost": 13, "g": 3, "w": 10, "mw": 6, "arch": [2], "proven": true, "W": 7, "ckt": [[[-4, -3, -6, 0, 4], [0, 0, 1, 1, -1]], [[5, 6, 2, 1, 0, -4, -7]]], "layered_cost": 16, "tax": 3}
+{"canon": 2019, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, -6, 6]], [[7, -1, -2, 2, 1, -6]]], "layered_cost": 13, "tax": 2}
+{"canon": 2022, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[2, 3, 4, 0, -4], [-4, -1, 0, 5, 0]], [[-5, -7, 0, 0, 1, 3, 4]]], "layered_cost": 15, "tax": 2}
+{"canon": 2025, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -6, -7, 1, 5]], [[7, 1, 1, 1, -2, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 2032, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -1, -7, 7, -1]], [[2, 0, 0, 1, -1, -1]]], "layered_cost": 11, "tax": 2}
+{"canon": 2033, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 0, -7, 7, -6]], [[4, -1, -1, 2, -3, 0]]], "layered_cost": 11, "tax": 2}
+{"canon": 2034, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-1, 1, -2, -2, 0]], [[-7, -2, -1, -3, -4, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 2040, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -1, -7, 7, -1]], [[5, 1, 1, 2, -3, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 4080, "cost": 7, "g": 2, "w": 5, "mw": 2, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 0, -1, 1, 0]], [[-2, 0, 0, -1, 1, 1]]], "layered_cost": 9, "tax": 2}
+{"canon": 5736, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, -7, -7, 7]], [[-7, -3, -3, -3, -3, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 5737, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[5, 1, 5, 5, -6]], [[5, -4, -4, -4, -4, 3]]], "layered_cost": 19, "tax": 8}
+{"canon": 5738, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 1, 1, 1, -2]], [[4, 3, -1, -1, -1, -2]]], "layered_cost": 13, "tax": 2}
+{"canon": 5739, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -7, -7, -7, 7]], [[-7, -1, -6, -6, -6, 12]]], "layered_cost": 18, "tax": 7}
+{"canon": 5742, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[7, 7, 2, 4, -6]], [[7, -3, -3, -3, -3, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 5758, "cost": 10, "g": 2, "w": 8, "mw": 6, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -6, 1, 0, -1]], [[3, -1, 2, -1, -1, -1]]], "layered_cost": 12, "tax": 2}
+{"canon": 5761, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-3, 7, -3, 2, -2]], [[-3, -1, 2, -1, 1, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 5763, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -7, -6, 5]], [[7, -1, -5, 2, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 5766, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[-4, 5, 2, 1, -3]], [[5, 2, -3, -3, -1, -1]]], "layered_cost": 16, "tax": 5}
+{"canon": 5767, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -7, 1, -6, 5]], [[7, -2, 3, -5, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 5769, "cost": 11, "g": 2, "w": 9, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 2, 1, 3, -4]], [[3, -1, -1, -1, -2, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 5771, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 3, 1, -4, 3]], [[7, 5, -4, -4, 1, -4]]], "layered_cost": 16, "tax": 5}
+{"canon": 5774, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-4, 2, 4, 0, -2], [0, -7, 0, -7, 7]], [[7, 3, 2, 0, -6, 1, -5]]], "layered_cost": 16, "tax": 3}
+{"canon": 5782, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 7, 7, 0, -1]], [[7, 3, -4, -4, -1, -2]]], "layered_cost": 15, "tax": 5}
+{"canon": 5783, "cost": 10, "g": 2, "w": 8, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, -4, -4, 0, 7]], [[4, 1, 1, 1, -2, -3]]], "layered_cost": 15, "tax": 5}
+{"canon": 5784, "cost": 14, "g": 3, "w": 11, "mw": 7, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[-3, 0, 0, -1, 3]], [[6, 7, -3, 1, 0, -7]], [[7, -2, 5, -1, 1, -6]]], "layered_cost": 17, "tax": 3}
+{"canon": 5785, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, -7, 1, -6, 5]], [[7, -5, 2, -1, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 5786, "cost": 14, "g": 3, "w": 11, "mw": 6, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[5, -4, 0, 1, -2]], [[-3, 0, 2, 1, 0, -1]], [[6, 3, -4, -2, 1, -3]]], "layered_cost": 17, "tax": 3}
+{"canon": 5787, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-5, 2, 1, -4, 3]], [[7, 3, -5, -2, 1, -3]]], "layered_cost": 16, "tax": 5}
+{"canon": 5790, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 6, 2, -1, -1]], [[7, 3, -2, -5, -1, -1]]], "layered_cost": 16, "tax": 5}
+{"canon": 5801, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[2, 1, 1, 2, -3]], [[7, -2, -3, -2, -4, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 5804, "cost": 13, "g": 3, "w": 10, "mw": 5, "arch": [2], "proven": true, "W": 7, "ckt": [[[3, 1, 3, -2, -2], [0, -4, -3, 0, 0]], [[-5, -4, 4, 0, 0, -1, 1]]], "layered_cost": 16, "tax": 3}
+{"canon": 5805, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -5, -7, 2, 5]], [[7, 3, 2, 2, -3, -5]]], "layered_cost": 16, "tax": 5}
+{"canon": 5820, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, -2, -2, 1, 2], [0, -7, -6, 0, 0]], [[5, -3, 3, 0, 0, -2, -3]]], "layered_cost": 16, "tax": 3}
+{"canon": 5865, "cost": 11, "g": 2, "w": 9, "mw": 5, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 1, 1, -2]], [[5, -1, -1, -1, -4, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 6014, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, -7, 1, 1, -1]], [[3, -1, 2, -1, -1, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 6030, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, -1, -7, -1]], [[7, -2, -2, -1, 3, -1]]], "layered_cost": 13, "tax": 2}
+{"canon": 6038, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-7, 5, 3, 1, -1]], [[6, 3, -4, -4, -1, -1]]], "layered_cost": 16, "tax": 5}
+{"canon": 6040, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, -3, 0, 1, 5], [0, 0, -3, -4, 0]], [[-7, -6, -3, -3, -5, 0, 12]]], "layered_cost": 15, "tax": 2}
+{"canon": 6042, "cost": 14, "g": 3, "w": 11, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-6, -7, -6, 1, 6], [7, 0, 0, -7, -2]], [[7, 5, 0, 3, 1, 1, -8]]], "layered_cost": 16, "tax": 2}
+{"canon": 6060, "cost": 14, "g": 3, "w": 11, "mw": 7, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[-6, 0, 1, 7, -1]], [[4, 0, -3, -1, 0, 0]], [[-6, -1, -2, -2, 3, 5]]], "layered_cost": 16, "tax": 2}
+{"canon": 6120, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, -6, -6, -7, 6]], [[-7, -2, -2, -2, -4, 6]]], "layered_cost": 13, "tax": 2}
+{"canon": 6375, "cost": 11, "g": 2, "w": 9, "mw": 3, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 2, 1, -3]], [[3, -1, -1, -2, -2, 1]]], "layered_cost": 16, "tax": 5}
+{"canon": 6625, "cost": 13, "g": 3, "w": 10, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-6, 1, -5, 1, 4], [0, 0, 1, -7, -1]], [[6, 4, 3, -2, 0, 0, -5]]], "layered_cost": 17, "tax": 4}
+{"canon": 6627, "cost": 14, "g": 3, "w": 11, "mw": 4, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[1, 0, 0, -4, 3]], [[4, 0, -3, -2, -2, 0]], [[-4, 2, -3, -1, -3, 4]]], "layered_cost": 17, "tax": 3}
+{"canon": 6630, "cost": 11, "g": 2, "w": 9, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[-6, 7, 1, 2, -2]], [[7, 3, -4, -1, -4, -2]]], "layered_cost": 16, "tax": 5}
+{"canon": 7128, "cost": 15, "g": 3, "w": 12, "mw": 5, "arch": [2], "proven": true, "W": 7, "ckt": [[[-1, -1, 3, -2, -1], [1, -1, -5, 0, 0]], [[5, 4, -1, 2, 0, 2, -5]]], "layered_cost": 17, "tax": 2}
+{"canon": 7140, "cost": 15, "g": 3, "w": 12, "mw": 7, "arch": [2], "proven": true, "W": 7, "ckt": [[[-3, -1, -4, -3, 4], [0, -1, 2, -1, 0]], [[-7, -6, -4, -2, 0, -5, 12]]], "layered_cost": 18, "tax": 3}
+{"canon": 7905, "cost": 11, "g": 2, "w": 9, "mw": 4, "arch": [1], "proven": true, "W": 7, "ckt": [[[1, 1, 2, 2, -3]], [[4, -1, -1, -2, -2, 0]]], "layered_cost": 16, "tax": 5}
+{"canon": 15555, "cost": 9, "g": 2, "w": 7, "mw": 7, "arch": [1], "proven": true, "W": 7, "ckt": [[[0, 1, -7, -7, 6]], [[7, 0, -6, 1, 1, -2]]], "layered_cost": 14, "tax": 5}
+{"canon": 27030, "cost": 17, "g": 3, "w": 14, "mw": 6, "arch": [1, 1], "proven": true, "W": 7, "ckt": [[[1, -1, -1, -1, 1]], [[6, -1, 3, 3, 3, -9]], [[5, 1, -1, -1, -1, -1]]], "layered_cost": 25, "tax": 8}

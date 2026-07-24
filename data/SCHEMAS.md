@@ -14,10 +14,34 @@ maps any table to its class and transforms the stored circuit back
 
 **Circuit encoding** (`ckt` fields): a list of layers; each layer a list of
 gates `[w_0, ..., w_{k-1}, bias]`. A gate outputs 1 iff
-`sum(w_i * input_i) + bias >= 0`. Layer 1 reads the four inputs; each later
-layer reads the previous layer's gate outputs (strict layering, no skip
-connections); the final layer is a single output gate. Empty `ckt` = a
-constant function (no gates).
+`sum(w_i * input_i) + bias >= 0`. Layer 1 reads the four inputs; the final
+layer is a single output gate. Empty `ckt` = a constant function (no gates).
+
+**Skip connections, and how to tell.** For a layer past the first, a gate
+either reads only the previous layer (strict layering) or additionally reads
+the raw inputs (a skip connection). The two are distinguished by the
+**width** of the weight vector, so both models share one encoding:
+
+| gate at layer `L > 0` | `len(w)` | weights line up against |
+|---|---|---|
+| strict layered | `len(prev)` | previous layer's outputs |
+| with skips | `len(prev) + 4` | `[previous layer's outputs..., x_0..x_3]` |
+
+i.e. when a gate carries skip wires, its **last four** weights are the raw
+inputs, in input order, after the previous-layer weights. No separate flag
+is stored, and no width is ambiguous.
+
+`n4_atlas.jsonl`, `n4_constructive_optima.jsonl` and `n4_fold_price.jsonl`
+contain strict-layered circuits only. `n4_skip.jsonl` contains skip
+circuits (which include layered ones as a special case — 15 depth-1 classes
+and any gate whose input weights are all zero). `tools/atlas_lookup.py` and
+`tools/verify_atlas.py` implement the rule above in `gate_sources()`.
+
+**Consequence for NPN transforms.** Because gates past the first can read
+the inputs, an input permutation/negation must be applied to *every* gate's
+raw-input slots, not just to layer 1. `transform_circuit()` in
+`tools/atlas_lookup.py` does this; a layer-1-only transform would silently
+produce a circuit for a different function.
 
 **Cost**: `cost = wires + gates`, where wires = number of nonzero weights
 across all gates and gates = number of gates with at least one nonzero
@@ -103,3 +127,33 @@ Structural category per class (`LTF`, `symmetric`, `dec:AND/OR`, `dec:XOR`,
 construction against the free optimum (`opt`, `peel`, `gap`, `shells`,
 `frontdoor_gap`). `dec:*` = disjoint-support decomposable, split by
 combining operator; `prime:tangle` = not disjointly decomposable.
+
+
+## `n4_skip.jsonl` — SKIP model (standard circuit model)
+
+One record per NPN class, 222 lines. Free weights only; the capped regimes
+are tabulated in the layered model (`n4_atlas.jsonl`) and have no skip-model
+counterpart yet.
+
+```json
+{"canon": 27030, "cost": 17, "g": 3, "w": 14, "mw": 6, "arch": [1, 1],
+ "proven": true, "W": 7,
+ "ckt": [[[1,-1,-1,-1,1]], [[6,-1,3,3,3,-9]], [[5,1,-1,-1,-1,-1]]],
+ "layered_cost": 25, "tax": 8}
+```
+
+| field | meaning |
+|---|---|
+| `canon` | NPN class representative (16-bit truth table) |
+| `cost`, `g`, `w`, `mw` | `cost = w + g`; gates, wires, max abs weight |
+| `arch` | hidden-layer sizes; `[]` = depth 1, `[k]` = one hidden layer of k, `[a,b]` = two |
+| `proven` | `true` = CP-SAT certified this as the minimum over all 32 architectures searched (depth-1, depth-2 widths 1..6, and every `[a,b]` with a,b in 1..5), at weight bound `W`. All 222 are proven. |
+| `W` | weight bound the search ran under (7, matching the layered atlas) |
+| `ckt` | circuit; see the skip-connection encoding above |
+| `layered_cost` | the same class's cost in `n4_atlas.jsonl` (free regime) |
+| `tax` | `layered_cost - cost`, i.e. what the layering restriction costs this class. Always >= 0, since forbidding the input wires cannot make a circuit cheaper. |
+
+Scope of `proven`: minimum over the searched architecture family at `W = 7`.
+Architectures outside that family are excluded by a counting argument (a
+trimmed circuit on a wider shape cannot beat the recorded cost), not by
+omission.

@@ -11,6 +11,12 @@ Checks, per data file:
   n4_fold_price.jsonl         every fold circuit computes its table, its
                               layer-1 gates respect the stated bipartition,
                               and premium = fold_cost - free_opt.
+  n4_skip.jsonl               every skip-model circuit computes its table and
+                              respects its weight bound; its layered_cost
+                              agrees with n4_atlas; and tax = layered - skip
+                              is arithmetic AND non-negative (the layered
+                              model is the skip model with the input wires
+                              forbidden, so it can never be cheaper).
 
 Exit code 0 iff everything passes. Run from the repository root:
   python tools/verify_atlas.py
@@ -23,10 +29,29 @@ N = 4
 DATA = Path(__file__).resolve().parent.parent / "data"
 
 
+def gate_sources(L, w, prev, x):
+    """Layer 1 reads the inputs. A later gate reads the previous layer, and
+    with a skip connection also the raw inputs — its weight vector is then
+    [previous-layer weights..., raw-input weights...], exactly N longer. The
+    width distinguishes the two, so one evaluator covers both data files."""
+    if L == 0:
+        if len(w) != len(x):
+            raise ValueError(f"layer-1 gate has {len(w)} weights, expected {len(x)}")
+        return x
+    if len(w) == len(prev):
+        return prev
+    if len(w) == len(prev) + len(x):
+        return list(prev) + list(x)
+    raise ValueError(f"gate has {len(w)} weights; expected {len(prev)} "
+                     f"(layered) or {len(prev) + len(x)} (skip)")
+
+
 def eval_circuit(ckt, x):
-    prev = x
-    for layer in ckt:
-        prev = [1 if sum(w * v for w, v in zip(g[:-1], prev)) + g[-1] >= 0 else 0
+    prev = list(x)
+    for L, layer in enumerate(ckt):
+        prev = [1 if sum(w * v for w, v in
+                         zip(g[:-1], gate_sources(L, g[:-1], prev, x))) + g[-1] >= 0
+                else 0
                 for g in layer]
     return prev[0]
 
@@ -129,6 +154,33 @@ def main():
     flag_note = (f"({fold_unproven} flagged proven=false: premiums are upper bounds)"
                  if fold_unproven else "(all proven)")
     print(f"n4_fold_price.jsonl: {n_f} fold circuits verified {flag_note}")
+
+    n_s = skip_unproven = taxed = 0
+    with open(DATA / "n4_skip.jsonl") as f:
+        for line in f:
+            r = json.loads(line)
+            T = r["canon"]
+            check(table_of(r["ckt"]) == T, f"skip ckt wrong: 0x{T:04x}", fails)
+            w, g, mw = cost_of(r["ckt"])
+            check(w + g == r["cost"] and w == r["w"] and g == r["g"],
+                  f"skip cost mismatch: 0x{T:04x}", fails)
+            check(mw == r["mw"] and mw <= r["W"],
+                  f"skip weight bound: 0x{T:04x}", fails)
+            # cross-file: the layered model is the skip model with the input
+            # wires forbidden, so the layered optimum can never be cheaper
+            lay = atlas[T]["regimes"]["free"]["balanced_11"]["cost"]
+            check(r["layered_cost"] == lay,
+                  f"skip/atlas layered_cost disagree: 0x{T:04x}", fails)
+            check(r["cost"] <= lay, f"skip dearer than layered: 0x{T:04x}", fails)
+            check(r["tax"] == lay - r["cost"], f"skip tax arithmetic: 0x{T:04x}", fails)
+            n_s += 1
+            taxed += r["tax"] > 0
+            if not r["proven"]:
+                skip_unproven += 1
+    print(f"n4_skip.jsonl: {n_s} skip circuits verified; {taxed} classes cost "
+          f"strictly less than in the layered model"
+          + (f"; {skip_unproven} flagged proven=false" if skip_unproven
+             else "; all proven"))
 
     if fails:
         print(f"\nFAILURES ({len(fails)}):")

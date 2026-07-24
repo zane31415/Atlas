@@ -9,45 +9,65 @@ of every stored circuit and explicit flags on every value whose optimality
 proof is incomplete.
 
 The cost model is **evaluation cost**: `cost = wires + gates`, where wires
-= nonzero weights (the interconnect currency of Kane–Williams, STOC 2016 —
-but see the model note below) and gates = threshold nodes. Three weight
-regimes are tabulated:
+= nonzero weights (the interconnect currency of Kane–Williams, STOC 2016)
+and gates = threshold nodes.
 
-> ### ⚠️ Model scope: every cost here is a **strict-layered-model** cost
->
-> In this atlas each gate reads **only the previous layer**, so the output
-> gate cannot read the raw inputs — no skip connections. The standard model
-> in circuit complexity *does* allow them, and the restriction is not free.
-> Measured exhaustively at n=4: **all 207 non-LTF classes get cheaper once
-> skips are allowed**, by a median of 2 and a mean of 2.86, and **parity-4
-> drops from 25 to 17** (both values CP-SAT–proven). Only the 15 depth-1
-> classes are unaffected, trivially. The tax is *non-uniform*: 4.8% of class
-> pairs swap cost order, so it is not a harmless rescaling.
->
-> This also qualifies the Kane–Williams reference above. Their LTF∘LTF model
-> lets the output gate read input variables as well as previous gate outputs
-> — i.e. it *admits* skips — so the costs tabulated here are a strictly
-> larger quantity than the one they bound. Earlier revisions of this README
-> and of `mm_oracle.py` attributed the cost model to them without that
-> qualification; that attribution was wrong and is corrected here.
->
-> Everything below is correct and proven **within the layered model**. Read
-> "minimum cost" as "minimum cost among strict-layered circuits" throughout.
-> The skip-model measurements are not yet published in this repository; this
-> repository ships proven values only, and that table will land when it is
-> packaged to the same standard as the data here.
+## Two circuit models, both tabulated
+
+Whether a gate may read the **raw inputs** as well as the layer below it
+turns out to change every number in this atlas, so both models are stored
+and the difference is a first-class object.
+
+| model | who can read the inputs | file |
+|---|---|---|
+| **skip** (default) | any gate — the standard model in circuit complexity, and the one Kane–Williams use | `data/n4_skip.jsonl` |
+| **layered** | only the first layer | `data/n4_atlas.jsonl` |
+
+Measured exhaustively at n=4, over the same 32 architectures, at the same
+weight bound: **207 of 222 classes are strictly cheaper in the skip
+model** — median 2, mean 2.86, maximum 8. The 15 unaffected classes are
+the depth-1 ones, where the two models coincide by definition. **Parity-4
+costs 25 layered and 17 skip, both CP-SAT–proven.**
+
+The restriction is *not* a harmless rescaling: **4.8% of class pairs swap
+cost order** between the models, so comparative claims do not transfer.
+
+The clearest single case is XOR of two variables (`0x0ff0`). Layered, it
+needs 3 gates and 6 wires; with one skip wire it needs 2 gates and 5:
+
+```
+h0_0 = [ -1*x2 + 1*x3 + (0) >= 0 ]          cost 7  (skip)
+out  = [ -2*h0_0 + -1*x2 + 1*x3 + (1) >= 0 ]   vs   cost 9 (layered)
+```
+
+**Why the skip table is the default.** It is the standard model, it is the
+one the cost model's own citation uses, and the structural fact below is
+invisible without it: 174 of the 222 optima use an architecture that
+*cannot exist* in the layered model.
+
+### What is stored in each
+
+The **skip** table has one regime — free weights — with the proven optimal
+circuit, its architecture, and its layered counterpart for comparison.
+
+The **layered** table is the older and deeper one, with three weight
+regimes:
 
 | regime | what is stored |
 |---|---|
 | **free** (unbounded integer weights) | the (1,1)-optimal circuit per class: full weights, biases, architecture |
 | **\|w\| ≤ 2** and **\|w\| ≤ 1** | the complete **Pareto frontier** over (gates, wires) — every non-dominated point with a verified circuit, so the optimum under *any* cost `a·wires + b·gates` (a,b > 0) is a lookup, no solver needed |
 
-Plus two derived tables: **constructive optima** (85 classes where a
-human-readable construction — a single gate, or a shell/decision-list
-circuit — provably matches the exact optimum) and the **price of
-decomposability** (for the 48 disjoint-decomposable classes, the exact
-minimum cost over circuits that respect the decomposition, versus the
+Plus two derived tables, both layered-model: **constructive optima** (85
+classes where a human-readable construction — a single gate, or a
+shell/decision-list circuit — provably matches the exact optimum) and the
+**price of decomposability** (for the 48 disjoint-decomposable classes, the
+exact minimum cost over circuits that respect the decomposition, versus the
 unrestricted optimum).
+
+So the capped regimes, the constructive forms and the fold prices are
+currently available **only** in the layered model. Re-deriving them under
+skips is open work, not an oversight.
 
 ## Quick start (no dependencies — standard library only)
 
@@ -56,18 +76,22 @@ Look up the minimal circuit for any truth table:
 ```
 $ python tools/atlas_lookup.py 0x6996
 truth table 0x6996  (NPN class 0x6996, ...)
-cost 25 = 20 wires + 5 gates   optimality proven: True
-  h0_0 = [ -2*x0 + -2*x1 + 1*x2 + 2*x3 + (1) >= 0 ]
-  ...
+source: exact solver (skip model, free weights, W=7); layered cost for the
+        same class is 25, so the layering restriction costs 8
+cost 17 = 14 wires + 3 gates   optimality proven: True
+  h0_0 = [ 1*x0 + -1*x1 + -1*x2 + -1*x3 + (1) >= 0 ]
+  h1_0 = [ 6*h0_0 + -1*x0 + 3*x1 + 3*x2 + 3*x3 + (-9) >= 0 ]
+  out  = [ 5*h1_0 + 1*x0 + -1*x1 + -1*x2 + -1*x3 + (-1) >= 0 ]
 verified: circuit reproduces the requested table on all 16 inputs
 ```
 
-`0x6996` is 4-bit parity. Add `--constructive` for the readable form
-(popcount shells), `--regime w2|w1` for capped weights, `--metric
-node_primary|wire_primary|wire10|gate10` for other cost ratios, `--json`
-for machine output. The tool maps your table to its NPN class, transforms
-the stored circuit back, and **re-verifies on all 16 inputs before
-printing** — you never have to trust the transform.
+`0x6996` is 4-bit parity; note both upper gates reading the raw inputs
+directly. Add `--model layered` for the strict-layered optimum, and then
+`--constructive` for the readable form (popcount shells), `--regime w2|w1`
+for capped weights, `--metric node_primary|wire_primary|wire10|gate10` for
+other cost ratios. `--json` gives machine output. The tool maps your table
+to its NPN class, transforms the stored circuit back, and **re-verifies on
+all 16 inputs before printing** — you never have to trust the transform.
 
 Re-verify the entire dataset from scratch:
 
@@ -78,6 +102,26 @@ ALL CHECKS PASSED
 ```
 
 ## Reference facts readable off the tables
+
+### Skip model
+
+- **174 of 222 optima use `arch=[1]`** — a single hidden gate feeding an
+  output that also reads the inputs. That architecture *degenerates* in the
+  layered model (an output gate reading one bit can only compute that bit,
+  its negation, or a constant), which is why layered gate counts jump
+  0, 1, 3, 4, 5 with **no circuit ever using exactly 2 gates**. The gap is
+  not a curiosity about a missing rung: it is where 78% of n=4 optima live
+  once the model permits them. Skip gate counts run 0, 1, 2, 3 with no gap,
+  and the maximum cost falls from 25 to 17.
+- **The layering tax is architecture-quantized**, not smooth. Its
+  distribution {2: 133, 3: 26, 4: 4, 5: 37, 6: 4, 7: 1, 8: 2} has a
+  secondary mode at 5 which is a single collapse: 37 classes whose layered
+  optimum needs three hidden gates but whose skip optimum needs one, each
+  dropping exactly 2 gates and 3 wires.
+- Every one of the 207 taxed classes saves at least one **gate**; the bill
+  splits 43% gates / 57% wires.
+
+### Layered model
 
 - **1,882** of 65,536 functions are threshold functions (single gate);
   their minimum-wire gates are stored.
@@ -135,7 +179,10 @@ ALL CHECKS PASSED
 ## Files
 
 ```
-data/n4_atlas.jsonl               per-class minimal circuits + capped Pareto frontiers
+data/n4_skip.jsonl                SKIP model: per-class minimal circuits (free
+                                  weights), with the layered cost and the tax
+data/n4_atlas.jsonl               LAYERED model: per-class minimal circuits +
+                                  capped Pareto frontiers
 data/n4_constructive_optima.jsonl readable circuits matching the exact optimum (85)
 data/n4_fold_price.jsonl          price of decomposability per decomposable class (48)
 data/n4_categories.jsonl          structural category per class
@@ -170,11 +217,13 @@ nothing).
 - **The cost model** (wires = nonzero weights as the complexity currency)
   follows D. M. Kane and R. Williams, "Super-linear gate and
   super-quadratic wire lower bounds for depth-two and depth-three threshold
-  circuits," *STOC 2016* (arXiv:1511.07860) — in the *currency*, not in the
-  *circuit model*: their LTF∘LTF gates may read input variables as well as
-  previous gate outputs, whereas this atlas is strictly layered (see the
-  model note at the top). The values here are therefore an upper bound on
-  the Kane–Williams quantity, not equal to it.
+  circuits," *STOC 2016* (arXiv:1511.07860). Their LTF∘LTF gates may read
+  input variables as well as previous gate outputs — i.e. their model
+  *admits* skips — so `data/n4_skip.jsonl` is the table comparable to their
+  quantity, and the layered values in `data/n4_atlas.jsonl` are a strictly
+  larger one. Earlier revisions of this README and of `mm_oracle.py`
+  attributed the cost model to them without that qualification; that
+  attribution was wrong and is corrected here.
 - **The layered restriction itself** is a studied class: A. Gál and
   J.-T. K. Jang, "The size and depth of layered Boolean circuits,"
   *Information Processing Letters* 111(5):213–217, 2011. In the neural-net
