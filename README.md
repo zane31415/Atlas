@@ -113,6 +113,21 @@ ALL CHECKS PASSED
   not a curiosity about a missing rung: it is where 78% of n=4 optima live
   once the model permits them. Skip gate counts run 0, 1, 2, 3 with no gap,
   and the maximum cost falls from 25 to 17.
+- **Depth 3 pays at n=4 — but only in this model.** Seven classes have a
+  depth-3 optimum (`arch=[1,1]`: two hidden layers of one gate each), all
+  proven, parity-4 among them. In the layered model the count is **0 of
+  222**: depth 3 never pays there at free weights. Every one of the seven
+  uses the shape layering cannot express, so this is the same `arch=[1]`
+  degeneracy one layer deeper. A depth claim is only ever a claim about a
+  model.
+
+| class | skip cost | arch | layered cost |
+|---|---|---|---|
+| `0x6996` (parity-4) | 17 | `[1,1]` | 25 |
+| `0x1698`, `0x169a`, `0x19e3` | 14 | `[1,1]` | 17 |
+| `0x17ac` | 14 | `[1,1]` | 16 |
+| `0x0672`, `0x0776` | 13 | `[1,1]` | 15 |
+
 - **The layering tax is architecture-quantized**, not smooth. Its
   distribution {2: 133, 3: 26, 4: 4, 5: 37, 6: 4, 7: 1, 8: 2} has a
   secondary mode at 5 which is a single collapse: 37 classes whose layered
@@ -125,12 +140,15 @@ ALL CHECKS PASSED
 
 - **1,882** of 65,536 functions are threshold functions (single gate);
   their minimum-wire gates are stored.
-- **Depth never pays at free weights at n=4**: every free-regime optimum
-  is depth ≤ 2. Depth-3 realizations only become competitive under weight
-  caps: at |w| ≤ 2 they appear only as wire-saving frontier points, but at
-  |w| ≤ 1 a depth-3 circuit is the strict `wires+gates` optimum for 13 of
-  the 222 classes (all proven; for three of them no depth-2 point makes
-  the frontier at all).
+- **Depth never pays at free weights at n=4** *in this model*: every
+  free-regime optimum is depth ≤ 2, 0 of 222. (Contrast the skip model
+  above, where 7 classes have a proven depth-3 optimum — the statement is
+  model-dependent, not a fact about threshold circuits.) Depth-3
+  realizations become competitive here only under weight caps: at |w| ≤ 2
+  they appear only as wire-saving frontier points, but at |w| ≤ 1 a depth-3
+  circuit is the strict `wires+gates` optimum for 13 of the 222 classes
+  (all proven; for three of them no depth-2 point makes the frontier at
+  all).
 - **33 of 222 classes have a genuine gate↔wire tradeoff under weight caps**
   (a multi-point Pareto frontier). 30 of the 33 are binate in all four
   variables; XOR-decomposable classes hit the tradeoff at 54% vs a 15%
