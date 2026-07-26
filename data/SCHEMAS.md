@@ -153,7 +153,15 @@ counterpart yet.
 | `layered_cost` | the same class's cost in `n4_atlas.jsonl` (free regime) |
 | `tax` | `layered_cost - cost`, i.e. what the layering restriction costs this class. Always >= 0, since forbidding the input wires cannot make a circuit cheaper. |
 
-Scope of `proven`: minimum over the searched architecture family at `W = 7`.
-Architectures outside that family are excluded by a counting argument (a
-trimmed circuit on a wider shape cannot beat the recorded cost), not by
-omission.
+Scope of `proven`: minimum over the searched architecture family at
+`W = 7`. Architectures outside that family are excluded by a counting
+argument (a trimmed circuit on a wider shape cannot beat the recorded
+cost), not by omission.
+
+**The weight bound is not binding.** The whole sweep was repeated at
+`W = 8` and **no cost changed on any of the 222 classes**. Note that
+`mw` is not itself minimized — the cost charges wires and gates but never
+weight magnitude, so witnesses simply expand to fill whatever bound they
+are given (172 of 222 sit at `mw = 7` when `W = 7`, and 179 sit at
+`mw = 8` when `W = 8`). A high `mw` therefore says nothing about how much
+magnitude a class needs; only the invariance of `cost` does.

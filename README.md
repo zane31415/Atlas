@@ -187,7 +187,8 @@ data/n4_constructive_optima.jsonl readable circuits matching the exact optimum (
 data/n4_fold_price.jsonl          price of decomposability per decomposable class (48)
 data/n4_categories.jsonl          structural category per class
 data/SCHEMAS.md                   precise schemas and encoding conventions
-n4_summary.csv                    one-row-per-class browsable summary
+n4_summary.csv                    one-row-per-class browsable summary, both
+                                  models side by side (layered_* and skip_*)
 tools/atlas_lookup.py             truth table -> verified minimal circuit (stdlib)
 tools/verify_atlas.py             re-verify every stored circuit (stdlib)
 mm_oracle.py                      the exact-synthesis library used to build the
