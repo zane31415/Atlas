@@ -29,31 +29,37 @@ N = 4
 DATA = Path(__file__).resolve().parent.parent / "data"
 
 
-def gate_sources(L, w, prev, x):
-    """Layer 1 reads the inputs. A later gate reads the previous layer, and
-    with a skip connection also the raw inputs — its weight vector is then
-    [previous-layer weights..., raw-input weights...], exactly N longer. The
-    width distinguishes the two, so one evaluator covers both data files."""
+def gate_sources(L, w, acts, x):
+    """Layer 1 reads the inputs. A later gate reads every earlier layer in
+    order, and with a skip connection also the raw inputs in the tail N
+    slots. Three widths, three models — len(prev) is strict layered,
+    len(all earlier)+N is the full DAG, len(prev)+N is a one-step skip —
+    and they are distinct except at L=1, where the models coincide. One
+    evaluator covers every data file."""
     if L == 0:
         if len(w) != len(x):
             raise ValueError(f"layer-1 gate has {len(w)} weights, expected {len(x)}")
         return x
+    prev, earlier = acts[-1], [v for layer in acts for v in layer]
     if len(w) == len(prev):
         return prev
+    if len(w) == len(earlier) + len(x):
+        return earlier + list(x)
     if len(w) == len(prev) + len(x):
         return list(prev) + list(x)
     raise ValueError(f"gate has {len(w)} weights; expected {len(prev)} "
-                     f"(layered) or {len(prev) + len(x)} (skip)")
+                     f"(layered), {len(earlier) + len(x)} (full DAG) or "
+                     f"{len(prev) + len(x)} (one-step skip)")
 
 
 def eval_circuit(ckt, x):
-    prev = list(x)
+    acts = []
     for L, layer in enumerate(ckt):
-        prev = [1 if sum(w * v for w, v in
-                         zip(g[:-1], gate_sources(L, g[:-1], prev, x))) + g[-1] >= 0
-                else 0
-                for g in layer]
-    return prev[0]
+        acts.append([1 if sum(w * v for w, v in
+                              zip(g[:-1], gate_sources(L, g[:-1], acts, x))) + g[-1] >= 0
+                     else 0
+                     for g in layer])
+    return acts[-1][0]
 
 
 def table_of(ckt):

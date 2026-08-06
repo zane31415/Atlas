@@ -20,14 +20,19 @@ and the difference is a first-class object.
 
 | model | who can read the inputs | file |
 |---|---|---|
-| **skip** (default) | any gate — the standard model in circuit complexity, and the one Kane–Williams use | `data/n4_skip.jsonl` |
+| **skip** (default) | any gate — every earlier layer *and* the raw inputs, the standard model in circuit complexity and the one Kane–Williams use | `data/n4_skip.jsonl` |
 | **layered** | only the first layer | `data/n4_atlas.jsonl` |
 
-Measured exhaustively at n=4, over the same 32 architectures, at the same
-weight bound: **207 of 222 classes are strictly cheaper in the skip
-model** — median 2, mean 2.86, maximum 8. The 15 unaffected classes are
-the depth-1 ones, where the two models coincide by definition. **Parity-4
-costs 25 layered and 17 skip, both CP-SAT–proven.**
+Measured exhaustively at n=4 at the same weight bound: **207 of 222 classes
+are strictly cheaper in the skip model** — median 2, mean 2.88, maximum 9.
+The 15 unaffected classes are the depth-1 ones, where the two models
+coincide by definition. **Parity-4 costs 25 layered and 16 skip, both
+CP-SAT–proven.**
+
+The skip search is not over a fixed list of architectures. It runs over
+every shape, of any depth and any width, that a support-and-wiring lower
+bound cannot retire against the incumbent — a finite family, derived per
+class rather than chosen. Parity-4 was searched to depth 6.
 
 The restriction is *not* a harmless rescaling: **4.8% of class pairs swap
 cost order** between the models, so comparative claims do not transfer.
@@ -77,16 +82,19 @@ Look up the minimal circuit for any truth table:
 $ python tools/atlas_lookup.py 0x6996
 truth table 0x6996  (NPN class 0x6996, ...)
 source: exact solver (skip model, free weights, W=7); layered cost for the
-        same class is 25, so the layering restriction costs 8
-cost 17 = 14 wires + 3 gates   optimality proven: True
-  h0_0 = [ 1*x0 + -1*x1 + -1*x2 + -1*x3 + (1) >= 0 ]
-  h1_0 = [ 6*h0_0 + -1*x0 + 3*x1 + 3*x2 + 3*x3 + (-9) >= 0 ]
-  out  = [ 5*h1_0 + 1*x0 + -1*x1 + -1*x2 + -1*x3 + (-1) >= 0 ]
+        same class is 25, so the layering restriction costs 9
+cost 16 = 13 wires + 3 gates   optimality proven: True
+  h0_0 = [ 6*x1 + -1*x2 + (-6) >= 0 ]
+  h1_0 = [ -3*h0_0 + -2*x0 + 1*x1 + -2*x2 + 2*x3 + (1) >= 0 ]
+  out  = [ -6*h0_0 + -6*h1_0 + -5*x0 + 3*x1 + -3*x2 + 3*x3 + (5) >= 0 ]
 verified: circuit reproduces the requested table on all 16 inputs
 ```
 
 `0x6996` is 4-bit parity; note both upper gates reading the raw inputs
-directly. Add `--model layered` for the strict-layered optimum, and then
+directly, and `out` reading **both** hidden gates — the skip to `h0_0`
+across `h1_0` is what makes this 16 rather than 17.
+
+Add `--model layered` for the strict-layered optimum, and then
 `--constructive` for the readable form (popcount shells), `--regime w2|w1`
 for capped weights, `--metric node_primary|wire_primary|wire10|gate10` for
 other cost ratios. `--json` gives machine output. The tool maps your table
@@ -112,24 +120,28 @@ ALL CHECKS PASSED
   0, 1, 3, 4, 5 with **no circuit ever using exactly 2 gates**. The gap is
   not a curiosity about a missing rung: it is where 78% of n=4 optima live
   once the model permits them. Skip gate counts run 0, 1, 2, 3 with no gap,
-  and the maximum cost falls from 25 to 17.
-- **Depth 3 pays at n=4 — but only in this model.** Seven classes have a
+  and the maximum cost falls from 25 to 16.
+- **Depth 3 pays at n=4 — but only in this model.** Ten classes have a
   depth-3 optimum (`arch=[1,1]`: two hidden layers of one gate each), all
   proven, parity-4 among them. In the layered model the count is **0 of
-  222**: depth 3 never pays there at free weights. Every one of the seven
+  222**: depth 3 never pays there at free weights. Every one of the ten
   uses the shape layering cannot express, so this is the same `arch=[1]`
   degeneracy one layer deeper. A depth claim is only ever a claim about a
   model.
+- **Depth 4 never pays at n=4**, in either model — proven, not assumed. The
+  search reaches depth 6 where the bound allows it, and no class improves
+  past depth 3.
 
 | class | skip cost | arch | layered cost |
 |---|---|---|---|
-| `0x6996` (parity-4) | 17 | `[1,1]` | 25 |
+| `0x6996` (parity-4) | 16 | `[1,1]` | 25 |
 | `0x1698`, `0x169a`, `0x19e3` | 14 | `[1,1]` | 17 |
-| `0x17ac` | 14 | `[1,1]` | 16 |
+| `0x1be4` | 14 | `[1,1]` | 18 |
+| `0x17ac`, `0x179a`, `0x07b4` | 13 | `[1,1]` | 16 |
 | `0x0672`, `0x0776` | 13 | `[1,1]` | 15 |
 
 - **The layering tax is architecture-quantized**, not smooth. Its
-  distribution {2: 133, 3: 26, 4: 4, 5: 37, 6: 4, 7: 1, 8: 2} has a
+  distribution {2: 130, 3: 28, 4: 5, 5: 37, 6: 4, 7: 1, 8: 1, 9: 1} has a
   secondary mode at 5 which is a single collapse: 37 classes whose layered
   optimum needs three hidden gates but whose skip optimum needs one, each
   dropping exactly 2 gates and 3 wires.
@@ -142,7 +154,7 @@ ALL CHECKS PASSED
   their minimum-wire gates are stored.
 - **Depth never pays at free weights at n=4** *in this model*: every
   free-regime optimum is depth ≤ 2, 0 of 222. (Contrast the skip model
-  above, where 7 classes have a proven depth-3 optimum — the statement is
+  above, where 10 classes have a proven depth-3 optimum — the statement is
   model-dependent, not a fact about threshold circuits.) Depth-3
   realizations become competitive here only under weight caps: at |w| ≤ 2
   they appear only as wire-saving frontier points, but at |w| ≤ 1 a depth-3

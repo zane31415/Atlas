@@ -18,18 +18,28 @@ gates `[w_0, ..., w_{k-1}, bias]`. A gate outputs 1 iff
 layer is a single output gate. Empty `ckt` = a constant function (no gates).
 
 **Skip connections, and how to tell.** For a layer past the first, a gate
-either reads only the previous layer (strict layering) or additionally reads
-the raw inputs (a skip connection). The two are distinguished by the
-**width** of the weight vector, so both models share one encoding:
+either reads only the previous layer (strict layering) or reads every
+earlier layer plus the raw inputs (skip connections, the standard model).
+The two are distinguished by the **width** of the weight vector, so both
+models share one encoding:
 
 | gate at layer `L > 0` | `len(w)` | weights line up against |
 |---|---|---|
 | strict layered | `len(prev)` | previous layer's outputs |
-| with skips | `len(prev) + 4` | `[previous layer's outputs..., x_0..x_3]` |
+| with skips | `len(all earlier layers) + 4` | `[layer-1 outputs..., ..., layer-(L-1) outputs..., x_0..x_3]` |
 
 i.e. when a gate carries skip wires, its **last four** weights are the raw
-inputs, in input order, after the previous-layer weights. No separate flag
-is stored, and no width is ambiguous.
+inputs, in input order, after the hidden-gate weights in layer order. No
+separate flag is stored, and no width is ambiguous.
+
+At depth 2 (`L = 1`) "all earlier layers" is just the previous layer, so
+the two rows are the only cases that arise there. Depth 3 is where the
+distinction bites: an output gate on `arch=[1,1]` has width `2 + 4 = 6`,
+because it reads the *first* hidden gate as well as the second. A width of
+`len(prev) + 4` at `L >= 2` is the ONE-STEP variant — a real circuit, and
+still readable by the tools, but not minimal in general. Five values
+published before 2026-08-06 were one-step minima and were loose by 1,
+parity-4 among them (17, now 16).
 
 `n4_atlas.jsonl`, `n4_constructive_optima.jsonl` and `n4_fold_price.jsonl`
 contain strict-layered circuits only. `n4_skip.jsonl` contains skip
@@ -136,27 +146,35 @@ are tabulated in the layered model (`n4_atlas.jsonl`) and have no skip-model
 counterpart yet.
 
 ```json
-{"canon": 27030, "cost": 17, "g": 3, "w": 14, "mw": 6, "arch": [1, 1],
- "proven": true, "W": 7,
- "ckt": [[[1,-1,-1,-1,1]], [[6,-1,3,3,3,-9]], [[5,1,-1,-1,-1,-1]]],
- "layered_cost": 25, "tax": 8}
+{"canon": 27030, "cost": 16, "g": 3, "w": 13, "mw": 6, "arch": [1, 1],
+ "proven": true, "W": 7, "model": "full",
+ "ckt": [[[0,6,-1,0,-6]], [[-3,-2,1,-2,2,1]], [[-6,-6,-5,3,-3,3,5]]],
+ "layered_cost": 25, "tax": 9}
 ```
+
+Read the output gate: seven slots = `h0_0`, `h1_0`, `x_0..x_3`, bias. It
+reads *both* hidden gates.
 
 | field | meaning |
 |---|---|
 | `canon` | NPN class representative (16-bit truth table) |
 | `cost`, `g`, `w`, `mw` | `cost = w + g`; gates, wires, max abs weight |
 | `arch` | hidden-layer sizes; `[]` = depth 1, `[k]` = one hidden layer of k, `[a,b]` = two |
-| `proven` | `true` = CP-SAT certified this as the minimum over all 32 architectures searched (depth-1, depth-2 widths 1..6, and every `[a,b]` with a,b in 1..5), at weight bound `W`. All 222 are proven. |
+| `proven` | `true` = CP-SAT certified this as the minimum over every architecture of any depth and width that the lower bound below cannot retire, at weight bound `W`. All 222 are proven. |
 | `W` | weight bound the search ran under (7, matching the layered atlas) |
+| `model` | `"full"` — every gate may read every earlier layer and the inputs |
 | `ckt` | circuit; see the skip-connection encoding above |
 | `layered_cost` | the same class's cost in `n4_atlas.jsonl` (free regime) |
 | `tax` | `layered_cost - cost`, i.e. what the layering restriction costs this class. Always >= 0, since forbidding the input wires cannot make a circuit cheaper. |
 
-Scope of `proven`: minimum over the searched architecture family at
-`W = 7`. Architectures outside that family are excluded by a counting
-argument (a trimmed circuit on a wider shape cannot beat the recorded
-cost), not by omission.
+Scope of `proven`: minimum at `W = 7` over a per-class architecture family
+derived from a lower bound, not from a fixed list. A circuit trims at no
+greater cost to one where every gate has at least one in-wire and every
+hidden gate is read downstream; on an architecture with `G` gates total
+computing a function of support `s`, that forces `cost >= s + 2G - 1`, which
+caps `G` and hence both depth and width against the incumbent. Every shape
+under that cap is searched (depth 6 for parity-4); everything above it is
+excluded by the bound, not by omission.
 
 **The weight bound is not binding.** The whole sweep was repeated at
 `W = 8` and **no cost changed on any of the 222 classes**. Note that

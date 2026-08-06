@@ -35,38 +35,49 @@ DATA = Path(__file__).resolve().parent.parent / "data"
 
 # ---------------------------------------------------------------- evaluation
 
-def gate_sources(L, w, prev, x):
+def gate_sources(L, w, acts, x):
     """The activation vector a gate's weights line up against.
 
-    Layer 1 reads the inputs. A later gate reads the previous layer's
-    outputs, and MAY additionally read the raw inputs (a skip connection),
-    in which case its weight vector is [previous-layer weights..., raw-input
-    weights...] and is exactly N longer. The width is what distinguishes the
-    two, so strict-layered and skip circuits share one file format and one
-    evaluator; n4_atlas.jsonl contains only the former, n4_skip.jsonl the
-    latter.
+    Layer 1 reads the inputs. A later gate reads EVERY earlier layer's
+    outputs, in layer order, and then MAY additionally read the raw inputs
+    (a skip connection), in which case its weight vector ends with N
+    raw-input weights. Three widths, three models, one file format:
+
+        len(prev)            strict layered   (n4_atlas.jsonl)
+        len(all earlier) + N full DAG         (n4_skip.jsonl)
+        len(prev) + N        one-step skip    (accepted, never emitted)
+
+    The last two coincide only at L = 1, where all three models coincide
+    anyway, so the width still decides without an extra tag. The one-step
+    case is kept because it is a real circuit — a full-DAG circuit with
+    zeros in the slots it skips over — and files published before
+    2026-08-06 stored five values that were minimal only under it.
     """
     if L == 0:
         if len(w) != len(x):
             raise ValueError(f"layer-1 gate has {len(w)} weights, expected {len(x)}")
         return x
+    prev, earlier = acts[-1], [v for layer in acts for v in layer]
     if len(w) == len(prev):
-        return prev                              # strict layered
+        return prev                                    # strict layered
+    if len(w) == len(earlier) + len(x):
+        return earlier + list(x)                       # full DAG
     if len(w) == len(prev) + len(x):
-        return list(prev) + list(x)              # with skip connections
+        return list(prev) + list(x)                    # one-step skip
     raise ValueError(f"gate has {len(w)} weights; expected {len(prev)} "
-                     f"(layered) or {len(prev) + len(x)} (skip)")
+                     f"(layered), {len(earlier) + len(x)} (full DAG) or "
+                     f"{len(prev) + len(x)} (one-step skip)")
 
 
 def eval_circuit(ckt, x):
     """x = list of 4 bits; returns the output bit."""
-    prev = list(x)
+    acts = []
     for L, layer in enumerate(ckt):
-        prev = [1 if sum(w * v for w, v in
-                         zip(g[:-1], gate_sources(L, g[:-1], prev, x))) + g[-1] >= 0
-                else 0
-                for g in layer]
-    return prev[0]
+        acts.append([1 if sum(w * v for w, v in
+                              zip(g[:-1], gate_sources(L, g[:-1], acts, x))) + g[-1] >= 0
+                     else 0
+                     for g in layer])
+    return acts[-1][0]
 
 
 def table_of(ckt):
@@ -120,16 +131,25 @@ def transform_circuit(ckt, perm, neg, flip):
     a circuit for a different function. Correctness is not derived from
     convention: the caller tries group elements until the transformed
     circuit VERIFIES against the requested table.
+
+    Only the tail matters here, and the head is carried through untouched,
+    so the layer-source convention (previous layer only, or every earlier
+    layer) does not affect this function — but the tail must be located by
+    the same widths gate_sources uses.
     """
-    new, nprev = [], N
+    new, sizes = [], []
     for L, layer in enumerate(ckt):
         out = []
+        nprev = sizes[-1] if sizes else 0
+        nall = sum(sizes)
         for g in layer:
             w, b = list(g[:-1]), g[-1]
             if L == 0:
                 head, tail = [], w                    # all slots are inputs
+            elif len(w) == nall + N:
+                head, tail = w[:nall], w[nall:]       # full DAG: tail is inputs
             elif len(w) == nprev + N:
-                head, tail = w[:nprev], w[nprev:]     # skip: tail is inputs
+                head, tail = w[:nprev], w[nprev:]     # one-step: tail is inputs
             else:
                 head, tail = w, []                    # layered: no input slots
             if tail:
@@ -144,7 +164,7 @@ def transform_circuit(ckt, perm, neg, flip):
                 nt = []
             out.append(list(head) + nt + [b])
         new.append(out)
-        nprev = len(layer)
+        sizes.append(len(layer))
     if flip:
         g = new[-1][0]
         new[-1][0] = [-w for w in g[:-1]] + [-g[-1] - 1]
@@ -211,10 +231,18 @@ def fmt(ckt):
         if L == 0:
             src = [f"x{j}" for j in range(N)]
         else:
-            src = [f"h{L-1}_{j}" for j in range(len(ckt[L - 1]))]
-            # a skip gate's weight vector carries N extra raw-input slots
-            if layer and len(layer[0]) - 1 == len(src) + N:
-                src = src + [f"x{j}" for j in range(N)]
+            prev = [f"h{L-1}_{j}" for j in range(len(ckt[L - 1]))]
+            earlier = [f"h{k}_{j}" for k in range(L) for j in range(len(ckt[k]))]
+            ins = [f"x{j}" for j in range(N)]
+            # the width says which sources the slots line up against; same
+            # three cases as gate_sources, and the same order
+            width = len(layer[0]) - 1 if layer else len(prev)
+            if width == len(earlier) + N:
+                src = earlier + ins            # full DAG
+            elif width == len(prev) + N:
+                src = prev + ins               # one-step skip
+            else:
+                src = prev                     # strict layered
         for gi, g in enumerate(layer):
             terms = " + ".join(f"{w}*{s}" for w, s in zip(g[:-1], src) if w != 0)
             name = "out" if L == len(ckt) - 1 else f"h{L}_{gi}"

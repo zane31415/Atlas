@@ -20,3 +20,9 @@ jobs:
       - run: python tools/atlas_lookup.py 0x6996 --model layered
       - run: python tools/atlas_lookup.py 0x0110 --model layered --regime w1 --metric wire_primary
       - run: python tools/atlas_lookup.py 0x6996 --model layered --constructive
+      # depth-3 skip circuits are the ONLY place the source convention is
+      # observable (an output gate reading both hidden gates, width 2+4).
+      # 0x9669 is parity-4 transformed, so it exercises the decode AND the
+      # NPN transform-back on such a gate.
+      - run: python tools/atlas_lookup.py 0x9669
+      - run: python tools/atlas_lookup.py 0x1be4
