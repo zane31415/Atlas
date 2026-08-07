@@ -5,7 +5,12 @@ Checks, per data file:
   n4_atlas.jsonl              every free circuit and every capped frontier
                               point computes its class's truth table; capped
                               points respect their weight bound; stored
-                              gate/wire counts match the circuit.
+                              gate/wire counts match the circuit; and the
+                              stored free circuit is the MAGNITUDE-MINIMAL
+                              optimum — max|w| <= 3, and equal to the k*
+                              implied by that class's own w1/w2 costs, so a
+                              regenerated file cannot quietly revert to raw
+                              solver output sitting on the search bound.
   n4_constructive_optima.jsonl  every circuit computes its table AND its cost
                               equals the free optimum stored in n4_atlas.
   n4_fold_price.jsonl         every fold circuit computes its table, its
@@ -100,8 +105,21 @@ def main():
         fr = r["regimes"]["free"]["balanced_11"]
         if fr["ckt"]:
             check(table_of(fr["ckt"]) == T, f"atlas free ckt wrong: 0x{T:04x}", fails)
-            w, g, _ = cost_of(fr["ckt"])
+            w, g, mw = cost_of(fr["ckt"])
             check(w + g == fr["cost"], f"atlas free cost mismatch: 0x{T:04x}", fails)
+            check(mw == fr["mw"], f"atlas free mw mismatch: 0x{T:04x}", fails)
+            # the free regime stores the MAGNITUDE-MINIMAL optimum, and no n=4
+            # class needs more than 3. Raw solver output would sit at the W=7
+            # search bound instead, so this is the regression guard for a
+            # regenerated file quietly losing the property.
+            check(mw <= 3, f"atlas free weight not magnitude-minimal: "
+                           f"0x{T:04x} has max|w|={mw}", fails)
+            # k* is pinned by this class's OWN certified capped costs
+            w1c = r["regimes"]["w1"]["metrics"]["balanced_11"]["cost"]
+            w2c = r["regimes"]["w2"]["metrics"]["balanced_11"]["cost"]
+            kstar = 1 if w1c == fr["cost"] else (2 if w2c == fr["cost"] else 3)
+            check(mw == kstar, f"atlas free mw {mw} != k*={kstar} implied by "
+                               f"the capped costs: 0x{T:04x}", fails)
             n_free += 1
         for regime, bound in (("w2", 2), ("w1", 1)):
             for i, pt in enumerate(r["regimes"][regime]["frontier"]):

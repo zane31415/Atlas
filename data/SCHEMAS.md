@@ -58,6 +58,24 @@ across all gates and gates = number of gates with at least one nonzero
 input weight. Weight magnitudes do not enter the cost; they are constrained
 only in the capped regimes.
 
+**Which of many optimal circuits is stored** (matters, because the cost does
+not determine the circuit). In `n4_atlas.jsonl`'s **free** regime the stored
+circuit is the *magnitude-minimal* representative: among the circuits that
+attain the class's optimal `cost`, one whose `max |weight|` is as small as
+that cost allows. `max|w| <= 3` for all 222 classes — 57 need only ternary
+weights, 120 need 2, 44 need 3. Before 2026-08-06 the stored circuits were
+raw solver output, which, since the metric never charges for magnitude,
+expanded to fill the `W = 7` search bound on 148 of 222 classes; the costs
+were identical then and are identical now. In `n4_skip.jsonl` the circuits
+are still raw solver output — that model has had no magnitude sweep, so its
+`mw` column is solver slack and should not be read as a requirement.
+
+The lower bound behind "as small as that cost allows" is Atlas's own capped
+data: a class needs `max|w| <= 1` exactly when its `w1` `balanced_11` cost
+equals its free cost, and `<= 2` exactly when its `w2` cost does. So that
+claim carries the same architecture-family scope the `w1`/`w2` costs carry,
+and nothing more. The circuits themselves are verified and scope-free.
+
 **`proven`**: `true` = the exact solver certified optimality (or, in
 `n4_constructive_optima`, equality with a certified optimum); `false` = the
 value is a verified upper bound whose optimality proof timed out (each such

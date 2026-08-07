@@ -152,6 +152,15 @@ ALL CHECKS PASSED
 
 - **1,882** of 65,536 functions are threshold functions (single gate);
   their minimum-wire gates are stored.
+- **Weights never need to exceed 3.** Every class attains its free-regime
+  optimal cost with `|w| ≤ 3`, and the stored circuit is the
+  magnitude-minimal one: 1 constant, 57 classes ternary (`|w| ≤ 1`), 120 at
+  2, 44 at 3. This is a property of the *representative*, not of the cost —
+  the (1,1) metric never charged for magnitude, so the circuits stored
+  before 2026-08-06 were raw solver output sitting on the `W = 7` search
+  bound (148 of 222 did). Same optima, same costs, same architectures,
+  smaller numbers. The skip table has had no such sweep, so its `mw` column
+  is still solver slack.
 - **Depth never pays at free weights at n=4** *in this model*: every
   free-regime optimum is depth ≤ 2, 0 of 222. (Contrast the skip model
   above, where 10 classes have a proven depth-3 optimum — the statement is
