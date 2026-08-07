@@ -1,11 +1,14 @@
-"""M-M depth-3 parameter-cost oracle.
+"""Exact minimum-wire oracle for integer-weight threshold circuits.
 
 Minimum-WIRE (nonzero-weight) realization of a Boolean function as a
 feedforward integer-weight THRESHOLD circuit of a given architecture,
-via scipy.optimize.milp (HiGHS). General threshold gates at every layer
-including the output (required for NPN soundness, MM_log DP-1). The
-threshold/bias is free; cost = total nonzero input weights = total
-wires.
+via CP-SAT (primary) or scipy.optimize.milp/HiGHS (cross-check). Gates are
+GENERAL threshold functions at every layer including the output, which is
+required for the answer to be an NPN class invariant: restricting the
+output gate (to AND/OR, say) gives a gate set that is not closed under
+input negation, so two members of the same NPN class could then get
+different costs. The threshold/bias is free; wires = total nonzero input
+weights.
 
 MODEL (load-bearing — there are THREE, pass `skips=` explicitly):
 
@@ -30,15 +33,18 @@ arXiv:1511.07860 §1) define LTF-of-LTF with an output gate that may take
 input variables as well as previous LTF outputs — i.e. WITH skips. That is
 a depth-2 statement, so skips=True and skips='full' both match it there.
 The default layered path computes a strictly larger quantity.
-See THEORY §16.6a.
 
-Architecture is a list of hidden-layer sizes:
-  []     -> depth-1 (single output gate reading inputs)
-  [k]    -> depth-2 (k hidden gates -> output)
-  [a, b] -> depth-3 (a -> b -> output)
-The output gate reads the last layer (the inputs when there is no
-hidden layer), unless skips=True. Activations of input "gates" are the
-constant data bits.
+Architecture is a list of hidden-layer sizes, of ANY length:
+  []        -> depth-1 (single output gate reading inputs)
+  [k]       -> depth-2 (k hidden gates -> output)
+  [a, b]    -> depth-3 (a -> b -> output)
+  [a, b, c] -> depth-4, and so on
+Which architectures a certified sweep must actually search is a separate
+question with its own answer; see `arch_family.live_archs`. Under
+skips=False the output gate reads the last layer only (the inputs when
+there is no hidden layer); under skips=True it also reads the inputs, and
+under skips='full' every earlier layer as well. Activations of input
+"gates" are the constant data bits.
 
 Returns the minimum wire count and a circuit, or None if INFEASIBLE
 for the given architecture and weight bound (an infeasibility is the
@@ -318,7 +324,7 @@ def _solve_arch_cpsat(rows, labels, hidden, W, time_limit=None,
     require_active (optional): force every gate to have >=1 in-wire and every
     hidden gate to be read by >=1 next-layer wire ('trimmed' circuits only).
     Sound ONLY when the caller enumerates all sub-architectures separately
-    (trimming lemma, FOLDPRICE_log 2026-07-11): any circuit trims to this
+    (the trimming lemma): any circuit trims to this
     form at <= cost by deleting unread gates and absorbing zero-wire
     (constant) gates into downstream biases."""
     n = len(rows[0]); P = len(rows)
@@ -619,13 +625,15 @@ def best_depth3(T, n, W=3, archs=None, cutoff=None, time_limit=None):
 
 
 # ---------------------------------------------------------------------------
-# NPN canonicalization (MM_log section 2)
+# NPN canonicalization
 # ---------------------------------------------------------------------------
 
 def npn_canonical(T, n, return_orbit_size=False):
     """Canonical NPN representative of truth table T: the minimum packed
     integer over all 2^n * n! * 2 transforms (input permutation, input
-    negation, output negation). General-threshold soundness in MM_log."""
+    negation, output negation). Sound as a cost invariant only because the
+    gate set is general threshold functions, which IS closed under this
+    group; see the module docstring."""
     N = 1 << n
     full = (1 << N) - 1
     orbit = set()
@@ -667,7 +675,7 @@ def enumerate_npn_classes(n):
 
 
 # ---------------------------------------------------------------------------
-# XOR-fold structure of a win (D5_log 2026-06-15)
+# XOR-fold structure of a win
 # ---------------------------------------------------------------------------
 # "Is a depth-3 win an XOR fold?" is a statement about the FUNCTION, not a
 # gate: in a strict threshold circuit every gate is an LTF and every LTF is
@@ -753,7 +761,7 @@ def decode_output_gate(circuit):
 
 
 # ---------------------------------------------------------------------------
-# Evaluation-cost objective: alpha*wires + beta*gates (D4METRIC_log 2026-06-15)
+# Evaluation-cost objective: alpha*wires + beta*gates
 # ---------------------------------------------------------------------------
 # Cost model = inference cost of a Boolean threshold net. Each wire is one
 # weighted input (a conditional add on binary activations); each gate is one
@@ -762,7 +770,9 @@ def decode_output_gate(circuit):
 # zero-fanin gates do not count. NOTE: weights are NOT penalized here (a
 # multiply is a multiply regardless of |w|), so this is run at FREE weights
 # (a generous bound W); the min-wire weight cap Wmax=2 is a different,
-# weight-starved object (see the cap-stability audit in D5_log).
+# weight-starved object -- under a cap a function can be forced onto a wider
+# or deeper architecture purely for want of magnitude, so capped and free
+# costs are not comparable point by point.
 
 def circuit_cost(circuit, alpha=1, beta=1):
     """Evaluation-cost score alpha*wires + beta*gates of a threshold circuit.
@@ -790,7 +800,7 @@ def best_cost(T, n, alpha=1, beta=1, W=4, archs=None, time_limit=None,
     per) or None. Soundness of min-over-archs: min_wires(arch) returns a
     realization with wires<=any same-arch optimum, and every smaller used
     architecture is itself enumerated, so the architecture-wise minimum is
-    the true global min cost (proof in D4METRIC_log)."""
+    the true global min cost (the argument is the one just given)."""
     if archs is None:
         archs = ([[]] + [[k] for k in range(1, n + 3)]
                  + [[a, b] for a in range(2, n + 1) for b in (2, 3)])
@@ -817,7 +827,7 @@ if __name__ == '__main__':
     for n in (2, 3):
         print(f"  n={n}: {len(enumerate_npn_classes(n))}")
 
-    # XOR-fold structure of the D5 wins (re-derives D5_log 2026-06-15 table)
+    # XOR-fold structure of the depth-3 wins
     print("\nXOR-fold test (is_xor_of_two_ltfs); expected fold weights "
           "constructed=1, 0x1eee0f=2, 0x707f8=3 (only 0x707f8 exceeds the "
           "Wmax=2 gate bound):")
