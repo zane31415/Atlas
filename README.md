@@ -317,10 +317,10 @@ releases are immutable reference points):
 
 ```
 Atlas: exact minimal threshold circuits for all 4-input Boolean functions.
-https://github.com/zane31415/Atlas, 2026.
+https://github.com/zane31415/Atlas, v1.1.0, 2026.
 ```
 
-**`v1.0.1` is superseded and should not be cited for skip-model costs**: five
+**`v1.0.1` is superseded and must not be cited for skip-model costs**: five
 of its 222 skip costs were too high by 1, parity-4 among them, because the
 search used a narrower circuit model at depth 3. See
-[CHANGELOG.md](CHANGELOG.md). Until the next tag, cite the commit hash.
+[CHANGELOG.md](CHANGELOG.md).

@@ -2,10 +2,14 @@
 
 Dates are the dates of the work, not of any release.
 
-## Unreleased (since v1.0.1)
+## v1.1.0 — 2026-08-06
 
 Two changes to `data/`, one a **correction** and one an **improvement**.
-Anything citing `v1.0.1` for a skip-model cost should move to this revision.
+**Anything citing `v1.0.1` for a skip-model cost must move to this release**:
+five of its 222 skip costs were wrong. The schema only gains fields, so a
+reader written against v1.0.1 still parses this without changes — which is
+exactly why the corrected values need saying out loud rather than leaving
+someone to notice.
 
 ### Corrected — the skip model was too narrow at depth 3
 
