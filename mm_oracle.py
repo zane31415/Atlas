@@ -7,22 +7,38 @@ including the output (required for NPN soundness, MM_log DP-1). The
 threshold/bias is free; cost = total nonzero input weights = total
 wires.
 
-MODEL (load-bearing): STRICT LAYERED. Each layer reads only the previous
-layer, so the output gate cannot see the raw inputs — no skip
-connections. The standard circuit-complexity model allows them and the
-restriction is not free; see the model note in README.md. Earlier
-revisions of this docstring called the wire count "the Kane-Williams
-quantity"; that was wrong, because Kane-Williams (STOC 2016,
-arXiv:1511.07860) let the output gate read input variables as well as
-previous gate outputs. What this oracle computes is an upper bound on
-their quantity, in the layered model.
+MODEL (load-bearing — there are THREE, pass `skips=` explicitly):
+
+  skips=False   strict layered: each layer reads ONLY the previous layer,
+                so the output gate cannot even see the raw inputs.
+  skips=True    one-step skip: a gate reads the previous layer AND the raw
+                inputs — but NOT any earlier hidden layer.
+  skips='full'  full DAG: a gate reads every earlier layer AND the inputs.
+                This is the standard circuit-complexity model.
+
+`True` and `'full'` COINCIDE for depth <= 2 (with one hidden layer, the
+previous layer is the only earlier layer), so they differ only on depth-3
+and deeper architectures. MODEL CORRECTION (2026-07-26): `skips=True` was
+described as "the standard model"; that is right at depth <= 2 and WRONG at
+depth 3, where the standard model lets the output gate read the first
+hidden layer too. Costs measured with skips=True on a depth>=3 architecture
+are therefore UPPER bounds relative to the standard model, not minima in it.
+
+CITATION CORRECTION (2026-07-22): this docstring used to call the wire
+count "the Kane-Williams quantity". Kane-Williams (STOC 2016,
+arXiv:1511.07860 §1) define LTF-of-LTF with an output gate that may take
+input variables as well as previous LTF outputs — i.e. WITH skips. That is
+a depth-2 statement, so skips=True and skips='full' both match it there.
+The default layered path computes a strictly larger quantity.
+See THEORY §16.6a.
 
 Architecture is a list of hidden-layer sizes:
   []     -> depth-1 (single output gate reading inputs)
   [k]    -> depth-2 (k hidden gates -> output)
   [a, b] -> depth-3 (a -> b -> output)
 The output gate reads the last layer (the inputs when there is no
-hidden layer). Activations of input "gates" are the constant data bits.
+hidden layer), unless skips=True. Activations of input "gates" are the
+constant data bits.
 
 Returns the minimum wire count and a circuit, or None if INFEASIBLE
 for the given architecture and weight bound (an infeasibility is the
@@ -211,29 +227,62 @@ def _solve_arch(rows, labels, hidden, W, time_limit=None, mip_gap=0.0,
     return dict(wires=wires, status='optimal', circuit=circuit)
 
 
-def verify_circuit(circuit, T, n):
-    """Confirm a returned circuit computes truth table T exactly. Returns
-    (ok, wires). Every oracle result should be verified, as the project
-    verifies every IIS witness."""
+def gate_sources(depth, L, skips=False):
+    """Ordered source blocks read by a gate at layer L of a `depth`-layer
+    circuit (depth = len(hidden) + 1). A block is an int (that layer's
+    outputs) or the string 'x' (the raw inputs); a gate's weight vector is
+    their concatenation IN THIS ORDER. Single source of truth shared by the
+    solver, the evaluator and any external reader of a stored circuit.
+
+      skips=False  -> [L-1]              strict layered
+      skips=True   -> [L-1, 'x']         one-step skip (prev layer + inputs)
+      skips='full' -> [0, 1, .., L-1, 'x']  full DAG (all earlier layers)
+
+    The three coincide for L <= 1, so ONLY depth>=3 circuits distinguish
+    True from 'full'."""
+    if L == 0:
+        return ['x']
+    if skips == 'full':
+        return list(range(L)) + ['x']
+    return [L - 1] + (['x'] if skips else [])
+
+
+def eval_circuit(circuit, x, skips=False):
+    """Model-aware evaluation of a stored circuit on one input row."""
+    n = len(x)
+    acts = []
+    for L, layer in enumerate(circuit):
+        vals = []
+        for (w, b) in layer:
+            s, off = b, 0
+            for blk in gate_sources(len(circuit), L, skips):
+                src = list(x) if blk == 'x' else acts[blk]
+                for j, v in enumerate(src):
+                    if v:
+                        s += w[off + j]
+                off += len(src)
+            vals.append(1 if s >= 0 else 0)
+        acts.append(vals)
+    return acts[-1][0]
+
+
+def verify_circuit(circuit, T, n, skips=False):
+    """Confirm a returned circuit computes truth table T exactly, IN THE
+    STATED MODEL. Returns (ok, wires). Every oracle result should be
+    verified, as the project verifies every IIS witness."""
     labels = truth_bits(T, n)
     rows = assignments(n)
     wires = sum(sum(1 for wj in w if wj != 0) for layer in circuit for (w, b) in layer)
     for p, x in enumerate(rows):
-        act = list(x)
-        for layer in circuit:
-            nxt = []
-            for (w, b) in layer:
-                s = b + sum(w[j] * act[j] for j in range(len(w)))
-                nxt.append(1 if s >= 0 else 0)
-            act = nxt
-        if act[0] != labels[p]:
+        if eval_circuit(circuit, x, skips=skips) != labels[p]:
             return False, wires
     return True, wires
 
 
 def _solve_arch_cpsat(rows, labels, hidden, W, time_limit=None,
                       num_workers=None, wire_budget=None, feasibility_only=False,
-                      cost_budget=None, l1_masks=None):
+                      cost_budget=None, l1_masks=None, require_active=False,
+                      skips=False, support=None):
     """CP-SAT min-wire realization for one architecture (the primary
     backend; scipy/_solve_arch is kept only for cross-checking). Boolean
     activations make weight*activation products and reified thresholds
@@ -248,15 +297,72 @@ def _solve_arch_cpsat(rows, labels, hidden, W, time_limit=None,
     fixed to 0. Used for fold-respecting (support-confined) synthesis. With
     masks, the wire-count symmetry-breaking order is applied only between
     adjacent SAME-mask gates (differently-masked gates are not
-    interchangeable, so the global ordering would be unsound)."""
+    interchangeable, so the global ordering would be unsound).
+
+    support (optional): indices of the input variables the function actually
+    depends on. Adds the IMPLIED constraint that each of them is read by at
+    least one gate -- if no gate carries a nonzero weight on x_i then the
+    output is independent of x_i, so any correct circuit must read it. The
+    solver can only reach this through the correctness constraints, which is
+    expensive; stating it directly is what makes the tight-budget
+    infeasibility proofs tractable. At a wire budget of exactly s + G - 1
+    (the floor: s input-sourced wires plus one out-wire per hidden gate) it
+    forces the whole structure -- every support variable read exactly once,
+    every hidden gate read exactly once, i.e. a read-once tree.
+    Sound ONLY for the EXACT support. A superset is a real restriction and
+    silently loses optima: it forces a wire to a variable the function does
+    not depend on. (Caught by the self-check on 0x6666 at n=4, which is
+    XOR(x0,x1) with support {0,1} -- declaring {1,2} raised its certified
+    cost from 7 to 8.) Use arch_family.support_vars, never a guess.
+
+    require_active (optional): force every gate to have >=1 in-wire and every
+    hidden gate to be read by >=1 next-layer wire ('trimmed' circuits only).
+    Sound ONLY when the caller enumerates all sub-architectures separately
+    (trimming lemma, FOLDPRICE_log 2026-07-11): any circuit trims to this
+    form at <= cost by deleting unread gates and absorbing zero-wire
+    (constant) gates into downstream biases."""
     n = len(rows[0]); P = len(rows)
     layers = list(hidden) + [1]
     prev_sizes = [n] + list(hidden)
     m = cp_model.CpModel()
 
+    def src_blocks(L):
+        """Ordered source blocks feeding any gate at layer L. A block is
+        ('L', idx) for a hidden layer's outputs or ('x', None) for the raw
+        inputs; the weight vector is their concatenation IN THIS ORDER.
+
+        skips=False  : ['L', L-1]                  (strict layered)
+        skips=True   : ['L', L-1] + ['x']          (one-step skip)
+        skips='full' : ['L', 0..L-1] + ['x']       (full DAG)
+
+        The three agree at L<=1, so depth<=2 results are model-independent
+        once skips is on at all; only depth>=3 distinguishes True from
+        'full'. See gate_sources()."""
+        if L == 0:
+            return [('x', None)]
+        if skips == 'full':
+            return [('L', l) for l in range(L)] + [('x', None)]
+        return [('L', L - 1)] + ([('x', None)] if skips else [])
+
+    def block_size(blk):
+        return n if blk[0] == 'x' else layers[blk[1]]
+
+    def src_pos(L_src, g, L_dst):
+        """Index of layer-L_src gate g inside a layer-L_dst weight vector,
+        or None when L_dst cannot read it in this model."""
+        off = 0
+        for blk in src_blocks(L_dst):
+            if blk == ('L', L_src):
+                return off + g
+            off += block_size(blk)
+        return None
+
     gate = []
     for L, size in enumerate(layers):
-        psz = prev_sizes[L]; Bmax = W * psz + 1
+        # skip wires: layers past the first may also read the raw inputs
+        # directly (the standard DAG model). Off by default so every
+        # existing call keeps the strict layered semantics.
+        psz = sum(block_size(b) for b in src_blocks(L)); Bmax = W * psz + 1
         is_out = (L == len(layers) - 1)
         glist = []
         for g in range(size):
@@ -279,19 +385,22 @@ def _solve_arch_cpsat(rows, labels, hidden, W, time_limit=None,
     def preact_terms(L, g, p):
         gd = gate[L][g]
         terms = [gd['b']]
-        if L == 0:
-            x = rows[p]
-            for j, wj in enumerate(gd['w']):
-                if x[j]:
-                    terms.append(wj)
-        else:
-            src = gate[L - 1]
-            for j, wj in enumerate(gd['w']):
-                a = src[j]['y'][p]
-                u = m.NewIntVar(-W, W, f'u{L}_{g}_{j}_{p}')
-                m.Add(u == wj).OnlyEnforceIf(a)
-                m.Add(u == 0).OnlyEnforceIf(a.Not())
-                terms.append(u)
+        x = rows[p]
+        off = 0
+        for blk in src_blocks(L):
+            if blk[0] == 'x':                    # raw inputs: constant data
+                for j in range(n):
+                    if x[j]:
+                        terms.append(gd['w'][off + j])
+            else:
+                src = gate[blk[1]]
+                for j in range(len(src)):
+                    a = src[j]['y'][p]
+                    u = m.NewIntVar(-W, W, f'u{L}_{g}_{off + j}_{p}')
+                    m.Add(u == gd['w'][off + j]).OnlyEnforceIf(a)
+                    m.Add(u == 0).OnlyEnforceIf(a.Not())
+                    terms.append(u)
+            off += block_size(blk)
         return terms
 
     for L in range(len(layers)):
@@ -308,6 +417,44 @@ def _solve_arch_cpsat(rows, labels, hidden, W, time_limit=None,
                     y = gate[L][g]['y'][p]
                     m.Add(s >= 0).OnlyEnforceIf(y)
                     m.Add(s <= -1).OnlyEnforceIf(y.Not())
+
+    if support:
+        # every relevant variable must be read SOMEWHERE (implied, not a
+        # restriction -- see docstring). Also state the aggregate count,
+        # which is what the LP relaxation can actually use against a budget.
+        inslots = []
+        for L in range(len(layers)):
+            off = 0
+            for blk in src_blocks(L):
+                if blk[0] == 'x':
+                    inslots.append((L, off))
+                off += block_size(blk)
+        for i in support:
+            m.AddBoolOr([gate[L][g]['z'][off + i]
+                         for (L, off) in inslots
+                         for g in range(layers[L])])
+        m.Add(sum(gate[L][g]['z'][off + i]
+                  for (L, off) in inslots
+                  for g in range(layers[L])
+                  for i in support) >= len(support))
+
+    if require_active:
+        # trimmed-form constraints (see docstring for the soundness contract)
+        for L in range(len(layers)):
+            for g in range(layers[L]):
+                m.AddBoolOr(gate[L][g]['z'])          # >=1 in-wire
+        for L in range(len(layers) - 1):
+            for g in range(layers[L]):
+                # read SOMEWHERE downstream. Under skips='full' a hidden gate
+                # may be read by any later layer, not only the next one, so
+                # the next-layer-only version would be an unsound extra
+                # constraint (it could cut off a legal trimmed circuit).
+                lit = []
+                for M in range(L + 1, len(layers)):
+                    j = src_pos(L, g, M)
+                    if j is not None:
+                        lit += [gate[M][g2]['z'][j] for g2 in range(layers[M])]
+                m.AddBoolOr(lit)
 
     # symmetry breaking: per hidden layer, gate wire-counts non-increasing
     # (with l1_masks, layer 0 orders only within same-mask runs — see docstring)
@@ -399,7 +546,8 @@ def feasible_depth3_below(T, n, budget, W=2, archs=None, time_limit=None):
 
 
 def min_wires(T, n, hidden, W=3, time_limit=None, backend='cpsat',
-              cost_budget=None, feasibility_only=False, l1_masks=None):
+              cost_budget=None, feasibility_only=False, l1_masks=None,
+              skips=False, support=None):
     """Public: min wires for architecture `hidden` (list of hidden-layer
     sizes) realizing truth table T at weight bound W. cost_budget (wires +
     active gates) caps the realization for arch pruning — with
@@ -413,8 +561,11 @@ def min_wires(T, n, hidden, W=3, time_limit=None, backend='cpsat',
         return _solve_arch_cpsat(rows, labels, hidden, W, time_limit=time_limit,
                                  cost_budget=cost_budget,
                                  feasibility_only=feasibility_only,
-                                 l1_masks=l1_masks)
+                                 l1_masks=l1_masks, skips=skips,
+                                 support=support)
+    assert support is None, "support requires the cpsat backend"
     assert l1_masks is None, "l1_masks requires the cpsat backend"
+    assert not skips, "skips require the cpsat backend"
     return _solve_arch(rows, labels, hidden, W, time_limit=time_limit)
 
 
@@ -630,7 +781,8 @@ def circuit_cost(circuit, alpha=1, beta=1):
                 gates=gates, maxw=maxw)
 
 
-def best_cost(T, n, alpha=1, beta=1, W=4, archs=None, time_limit=None):
+def best_cost(T, n, alpha=1, beta=1, W=4, archs=None, time_limit=None,
+              skips=False):
     """Minimum alpha*wires + beta*gates realization of T over a set of
     architectures (each a list of hidden-layer sizes; [] = depth-1). Run at
     free-ish weights via bound W (default 4; record maxw and bump W if it is
@@ -645,7 +797,7 @@ def best_cost(T, n, alpha=1, beta=1, W=4, archs=None, time_limit=None):
     best = None
     per = {}
     for h in archs:
-        r = min_wires(T, n, list(h), W, time_limit)
+        r = min_wires(T, n, list(h), W, time_limit, skips=skips)
         if r['status'] != 'optimal' or r['circuit'] is None:
             continue
         c = circuit_cost(r['circuit'], alpha, beta)
@@ -699,4 +851,58 @@ if __name__ == '__main__':
     print(f"  best_cost(AND3, (1,1)): cost={bc['cost']} arch={bc['arch']} "
           f"wires={bc['wires']} gates={bc['gates']}")
     assert bc['cost'] == 4 and bc['arch'] == () and bc['gates'] == 1, bc
+
+    # ---- three circuit models (2026-07-26) ----
+    # (a) the source layout is what the solver and the evaluator agree on
+    assert gate_sources(3, 2, False) == [1]
+    assert gate_sources(3, 2, True) == [1, 'x']
+    assert gate_sources(3, 2, 'full') == [0, 1, 'x']
+    assert gate_sources(2, 1, True) == gate_sources(2, 1, 'full') == [0, 'x']
+    # (b) skips=True and skips='full' must AGREE at depth<=2, and each must
+    #     reproduce its own known value. XOR(x0,x1) at n=4: 9 layered, 7 skip.
+    for sk, exp in ((False, 9), (True, 7), ('full', 7)):
+        best = None
+        for h in ([], [1], [2], [3]):
+            r = min_wires(0x6666, 4, h, W=7, time_limit=60, skips=sk)
+            if r['circuit'] is None or r['status'] != 'optimal':
+                continue
+            ok, _ = verify_circuit(r['circuit'], 0x6666, 4, skips=sk)
+            assert ok, ('model eval disagrees with solver', sk, h)
+            c = circuit_cost(r['circuit'])['cost']
+            best = c if best is None else min(best, c)
+        print(f"  XOR2@n4 depth<=2, skips={sk!r}: cost {best} (expected {exp})")
+        assert best == exp, (sk, best, exp)
+    # (c) at depth 3 they need NOT agree, but 'full' can never be worse:
+    #     it strictly extends the source set of the output gate.
+    r1 = min_wires(0x6666, 4, [1, 1], W=7, time_limit=120, skips=True)
+    r2 = min_wires(0x6666, 4, [1, 1], W=7, time_limit=120, skips='full')
+    c1 = circuit_cost(r1['circuit'])['cost'] if r1['circuit'] else None
+    c2 = circuit_cost(r2['circuit'])['cost'] if r2['circuit'] else None
+    ok2 = r2['circuit'] is None or verify_circuit(r2['circuit'], 0x6666, 4,
+                                                  skips='full')[0]
+    print(f"  XOR2@n4 arch [1,1]: one-step {c1} ({r1['status']}) vs "
+          f"full-DAG {c2} ({r2['status']})")
+    assert ok2, 'full-DAG circuit failed its own verifier'
+    assert not (c1 is not None and c2 is not None and r2['status'] == 'optimal'
+                and c2 > c1), (c1, c2)
+
+    # ---- support= is an IMPLIED constraint FOR THE TRUE SUPPORT: it may
+    # change the TIME, never the answer. Checked on certified optima.
+    def _support(T, n):
+        return [i for i in range(n)
+                if any(((T >> a) & 1) != ((T >> (a ^ (1 << i))) & 1)
+                       for a in range(1 << n))]
+    assert _support(0x6666, 4) == [0, 1], _support(0x6666, 4)
+    for T, n, h, exp in ((0x6666, 4, [1], 7),                   # XOR2@n4
+                         (0x6666, 4, [2], 7),
+                         (0x80, 3, [], 4)):                     # AND3
+        sup = _support(T, n)
+        a = min_wires(T, n, h, W=7, time_limit=120, skips='full')
+        b = min_wires(T, n, h, W=7, time_limit=120, skips='full', support=sup)
+        ca = circuit_cost(a['circuit'])['cost'] if a['circuit'] else None
+        cb = circuit_cost(b['circuit'])['cost'] if b['circuit'] else None
+        print(f"  support-invariance 0x{T:x} n={n} {h}: {ca} vs {cb} "
+              f"(expected {exp})")
+        assert ca == cb == exp, (T, h, ca, cb, exp)
+        assert a['status'] == b['status'], (T, h, a['status'], b['status'])
     print("self-check OK")

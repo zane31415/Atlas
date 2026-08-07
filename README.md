@@ -23,8 +23,9 @@ and the difference is a first-class object.
 | **skip** (default) | any gate — every earlier layer *and* the raw inputs, the standard model in circuit complexity and the one Kane–Williams use | `data/n4_skip.jsonl` |
 | **layered** | only the first layer | `data/n4_atlas.jsonl` |
 
-Measured exhaustively at n=4 at the same weight bound: **207 of 222 classes
-are strictly cheaper in the skip model** — median 2, mean 2.88, maximum 9.
+Measured exhaustively at n=4, both searches under the same weight bound
+(`W = 7`): **207 of 222 classes are strictly cheaper in the skip model** —
+median 2, mean 2.88, maximum 9.
 The 15 unaffected classes are the depth-1 ones, where the two models
 coincide by definition. **Parity-4 costs 25 layered and 16 skip, both
 CP-SAT–proven.**
@@ -226,12 +227,16 @@ data/n4_constructive_optima.jsonl readable circuits matching the exact optimum (
 data/n4_fold_price.jsonl          price of decomposability per decomposable class (48)
 data/n4_categories.jsonl          structural category per class
 data/SCHEMAS.md                   precise schemas and encoding conventions
+CHANGELOG.md                      what changed between revisions, and which
+                                  published values were corrected
 n4_summary.csv                    one-row-per-class browsable summary, both
                                   models side by side (layered_* and skip_*)
 tools/atlas_lookup.py             truth table -> verified minimal circuit (stdlib)
 tools/verify_atlas.py             re-verify every stored circuit (stdlib)
 mm_oracle.py                      the exact-synthesis library used to build the
                                   tables (CP-SAT / LP; needs numpy, scipy, ortools)
+arch_family.py                    which architectures a certified sweep must
+                                  search, derived from a lower bound (stdlib)
 ```
 
 Model conventions (bit order, circuit encoding, NPN group) are specified at
@@ -245,6 +250,22 @@ budget, circuit verification, and NPN canonicalization. `python
 mm_oracle.py` runs its self-checks. Dependencies for solving only:
 `numpy`, `scipy`, `ortools` (the lookup and verification tools need
 nothing).
+
+**The model is a parameter, not a default.** `min_wires(..., skips=)` takes
+`False` (strict layered), `True` (a gate reads the previous layer and the
+raw inputs) or `'full'` (a gate reads every earlier layer and the raw
+inputs). The three agree at depth ≤ 2 and diverge at depth 3, which is
+where five of the values in this repository were once wrong; the self-check
+pins all three. `data/n4_atlas.jsonl` is `skips=False`, `data/n4_skip.jsonl`
+is `skips='full'`.
+
+`arch_family.py` decides *which* architectures a certified sweep has to
+search. A circuit trims at no greater cost to one where every gate has an
+in-wire and every hidden gate is read downstream, which forces
+`cost >= support + 2·gates - 1` and so caps the total gate count — hence
+both depth and width — against the current incumbent. `live_archs()`
+returns exactly the shapes under that cap, cheapest bound first; everything
+above it is excluded by the bound rather than by a hand-picked list.
 
 ## Relation to prior work
 
@@ -296,5 +317,10 @@ releases are immutable reference points):
 
 ```
 Atlas: exact minimal threshold circuits for all 4-input Boolean functions.
-https://github.com/zane31415/Atlas, v1.0.1, 2026.
+https://github.com/zane31415/Atlas, 2026.
 ```
+
+**`v1.0.1` is superseded and should not be cited for skip-model costs**: five
+of its 222 skip costs were too high by 1, parity-4 among them, because the
+search used a narrower circuit model at depth 3. See
+[CHANGELOG.md](CHANGELOG.md). Until the next tag, cite the commit hash.
